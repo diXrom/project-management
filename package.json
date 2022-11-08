@@ -1,0 +1,67 @@
+{
+  "name": "project-management",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://dixrom.github.io/project-management/",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.0",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.8",
+    "@types/react-beautiful-dnd": "^13.1.2",
+    "clsx": "^1.2.1",
+    "framer-motion": "^7.6.5",
+    "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.1",
+    "react-icons": "^4.6.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "sass": "^1.56.0",
+    "tailwindcss": "^3.2.2",
+    "web-vitals": "^3.0.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.2.2",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest-fetch-mock": "^3.0.3",
+    "postcss": "^8.4.18",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --watchAll=false",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
