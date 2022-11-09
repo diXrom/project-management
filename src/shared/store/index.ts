@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { postAPI } from 'shared/api';
+import { managerAPI } from 'shared/api';
 
 export const store = configureStore({
-  reducer: { [postAPI.reducerPath]: postAPI.reducer },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(postAPI.middleware),
+  reducer: { [managerAPI.reducerPath]: managerAPI.reducer },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(managerAPI.middleware),
 });
 
 export type AppState = ReturnType<typeof store.getState>;
