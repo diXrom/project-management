@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 type langState = { lang: 'en' | 'ru' };
 
 const initialState: langState = { lang: 'en' };
-const moviesSlice = createSlice({
+const langSlice = createSlice({
   name: 'lang',
   initialState,
   reducers: {
@@ -17,5 +17,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { toggleLang } = moviesSlice.actions;
-export default moviesSlice;
+export const { toggleLang } = langSlice.actions;
+export default langSlice;
