@@ -51,12 +51,6 @@ interface IPoint {
   done: boolean;
 }
 
-interface IStorageAuth {
-  token: string;
-  name: string;
-  tokenLifetime: number;
-}
-
 type IToken = { token: string };
 
 type IIds = { ids: string[] };
@@ -92,5 +86,4 @@ export type {
   IFileId,
   IPoint,
   IPointId,
-  IStorageAuth,
 };

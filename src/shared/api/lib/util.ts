@@ -1,15 +1,8 @@
-import { STORAGE_AUTH } from 'shared/common/constants';
-import { IStorageAuth } from './types';
-
-const getStorageInfo = () => {
-  const token = localStorage.getItem(STORAGE_AUTH);
-  if (token) return JSON.parse(token) as IStorageAuth;
-  return null;
-};
+import { STORAGE_TOKEN } from 'shared/common/constants';
 
 const prepareHeaders = (headers: Headers) => {
   headers.set('Accept', 'application/json');
-  headers.set('Authorization', `Bearer ${getStorageInfo()?.token || ''}`);
+  headers.set('Authorization', `Bearer ${localStorage.getItem(STORAGE_TOKEN) || ''}`);
   return headers;
 };
 

@@ -4,6 +4,6 @@ const ROUTE_PATH = {
   REGISTRATION: '/registration',
 };
 
-const STORAGE_AUTH = 'DMV_AUTH';
+const STORAGE_TOKEN = 'DMV_TOKEN';
 
-export { ROUTE_PATH, STORAGE_AUTH };
+export { ROUTE_PATH, STORAGE_TOKEN };

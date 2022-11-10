@@ -11,9 +11,8 @@ export const extendedApiSlice = managerAPI.injectEndpoints({
           ? [TAGS.USERS, ...result.map(({ _id }) => ({ type: TAGS.USERS, id: _id }))]
           : [TAGS.USERS],
     }),
-    getUser: build.query<IUser, IUserId>({
+    getUser: build.mutation<IUser, IUserId>({
       query: ({ userId }) => `${API_PATH.USERS}/${userId}`,
-      providesTags: (_, __, arg) => [{ type: TAGS.USERS, id: arg.userId }],
     }),
     updateUser: build.mutation<IUser, IUserId & IAuth>({
       query: ({ userId, ...body }) => ({ url: `${API_PATH.USERS}/${userId}`, method: 'PUT', body }),
@@ -26,5 +25,9 @@ export const extendedApiSlice = managerAPI.injectEndpoints({
   }),
 });
 
-export const { useGetUsersQuery, useGetUserQuery, useUpdateUserMutation, useDeleteUserMutation } =
-  extendedApiSlice;
+export const {
+  useGetUsersQuery,
+  useGetUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = extendedApiSlice;
