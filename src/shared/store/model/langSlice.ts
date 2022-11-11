@@ -1,18 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import i18n from 'shared/locale/i18n';
 
-type langState = { lang: 'en' | 'ru' };
+type langState = { lang: 'EN' | 'RU' };
 
-const initialState: langState = { lang: 'en' };
+const initialState: langState = { lang: 'EN' };
 const langSlice = createSlice({
   name: 'lang',
   initialState,
   reducers: {
-    toggleLang(state) {
-      if (state.lang === 'en') {
-        state.lang = 'ru';
-      } else {
-        state.lang = 'en';
-      }
+    toggleLang(state, { payload }: PayloadAction<'EN' | 'RU'>) {
+      state.lang = payload;
+      i18n.changeLanguage(payload);
     },
   },
 });
