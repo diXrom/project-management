@@ -1,5 +1,5 @@
 const button =
-  'px-2.5 py-1.5 border-2 text-sm font-medium rounded shadow-xl text-white active:scale-95 transition duration-300 disabled:opacity-50 disabled:scale-100 disabled:pointer-events-none';
+  'border-2 text-sm px-2.5 py-1.5 font-medium rounded shadow-xl text-white active:scale-95 transition duration-300 disabled:opacity-50 disabled:scale-100 disabled:pointer-events-none transform-gpu';
 
 const buttonOutline =
   'border-gray-900 bg-transparent text-black hover:text-white hover:bg-gray-900 disabled:bg-transparent disabled:text-black';
