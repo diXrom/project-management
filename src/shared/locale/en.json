@@ -1,4 +1,7 @@
 {
   "signUp": "Sign Up",
-  "signIn": "Sign In"
+  "signIn": "Sign In",
+  "error": "Something went wrong...",
+  "loading": "Loading...",
+  "newBoard": "+ Create Board"
 }
