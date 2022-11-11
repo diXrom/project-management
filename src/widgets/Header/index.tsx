@@ -11,6 +11,7 @@ import AuthBtns from './ui/AuthBtns';
 import UserPanel from './ui/UserPanel';
 import useScrollY from './model/useScrollY';
 import clsx from 'clsx';
+import { memo } from 'react';
 
 const Header = () => {
   const user = useAppSelector(getUser);
@@ -38,4 +39,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);
