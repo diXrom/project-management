@@ -4,7 +4,9 @@
   "logout": "Logout",
   "editProfile": "Edit profile",
   "addBoard": "Add board",
-
+  "enterName": "Enter name",
+  "newBoard": "New board:",
+  "save": "Save",
   "error": "Something went wrong...",
   "loading": "Loading..."
 }

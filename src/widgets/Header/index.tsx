@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { VscProject } from 'react-icons/vsc';
 
 import LangSwitcher from 'widgets/Header/ui/LangSwitcher';
@@ -9,7 +8,6 @@ import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
 
 import { ROUTE_PATH, STORAGE_TOKEN } from 'shared/common/constants';
-import Button from 'shared/components/Button';
 import AuthBtns from './ui/AuthBtns';
 import UserPanel from './ui/UserPanel';
 import useScrollY from './model/useScrollY';
@@ -21,11 +19,7 @@ const Header = () => {
   const user = useAppSelector(getUser);
   //Пока отлючена анимация перехода стики хедера
   /*  const scrollY = useScrollY(); */
-  const { t } = useTranslation();
-  const [addBoard] = useAddBoardMutation();
-  const createBoardHandler = async () => {
-    await addBoard({ title: 'test45', owner: 'Inna', users: ['Inna'] });
-  };
+
   return (
     <header
       className={clsx(
@@ -38,9 +32,6 @@ const Header = () => {
           <VscProject className="w-10 h-10 text-white transition duration-300 active:scale-95" />
         </Link>
         <motion.div layout className="items-center flex-shrink-0 gap-2.5 flex">
-          {localStorage.getItem(STORAGE_TOKEN) && (
-            <Button onClick={createBoardHandler}>{t('newBoard')}</Button>
-          )}
           <LangSwitcher />
           {user ? <UserPanel /> : <AuthBtns />}
         </motion.div>

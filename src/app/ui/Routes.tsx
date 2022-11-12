@@ -16,7 +16,7 @@ const MainRoutes = () => (
         <Route path={ROUTE_PATH.REGISTRATION} element={<Registration />} />
         <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
         <Route path={ROUTE_PATH.EDIT} element={<EditProfile />} />
-        <Route path={ROUTE_PATH.BOARDS} element={<div>BOARDS</div>} />
+        <Route path={ROUTE_PATH.BOARDS} element={<MainPage />} />
       </Route>
     </Routes>
   </Router>

@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { Fragment, memo, useState } from 'react';
+import { FormEvent, Fragment, memo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { FaSignOutAlt, FaUserEdit } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,8 @@ import { getUser } from 'shared/store/model/selectors';
 import { MdPostAdd } from 'react-icons/md';
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal';
+import Input from 'shared/components/Input';
+import { useAddBoardMutation } from 'shared/api/model/boardsSlice';
 
 const transition = {
   enter: 'transition ease-out duration-100',
@@ -34,6 +36,19 @@ const UserPanel = () => {
     { path: ROUTE_PATH.INDEX, icon: <FaSignOutAlt className="w-4 h-4" />, text: 'logout' },
   ];
 
+  const [inputValue, setInputValue] = useState('');
+
+  function onChange(event: React.FormEvent<HTMLInputElement>) {
+    setInputValue(event.currentTarget.value);
+  }
+  const [addBoard] = useAddBoardMutation();
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    await addBoard({ title: inputValue, owner: 'Inna', users: ['Inna'] });
+    closeModal();
+    setInputValue('');
+  }
   return (
     <>
       <Button
@@ -74,7 +89,16 @@ const UserPanel = () => {
         </Transition>
       </Menu>
       <Modal isOpen={isOpen} closeModal={closeModal}>
-        <div>Добавить доску</div>
+        <h3 className="leading-loose text-lg">{t('newBoard')}</h3>
+        <form onSubmit={handleSubmit}>
+          <Input
+            placeholder={t('enterName')}
+            type="text"
+            value={inputValue}
+            onChange={onChange}
+          ></Input>
+          <Button type="submit">{t('save')}</Button>
+        </form>
       </Modal>
     </>
   );
