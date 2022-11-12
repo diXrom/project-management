@@ -1,4 +1,7 @@
 {
-  "signUp": "Sign Up",
-  "signIn": "Sign In"
+  "signUp": "Sign up",
+  "signIn": "Sign in",
+  "logout": "Logout",
+  "editProfile": "Edit profile",
+  "addBoard": "Add board"
 }

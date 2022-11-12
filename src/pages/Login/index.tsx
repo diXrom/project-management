@@ -6,7 +6,6 @@ import { useSignInMutation } from 'shared/api/model/authSlice';
 import { useGetUserMutation } from 'shared/api/model/usersSlice';
 import { ROUTE_PATH, STORAGE_TOKEN } from 'shared/common/constants';
 import { fade, motionVariants } from 'shared/common/styles';
-import { IUser } from 'shared/api/lib/types';
 import Button from 'shared/components/Button';
 import { useAppDispatch } from 'shared/store/model/hooks';
 import { setUser } from 'shared/store/model/authSlice';
@@ -20,7 +19,7 @@ const Login = () => {
     const { token } = await signIn(auth).unwrap();
     if (!token) return console.log('Не удалось войти');
     localStorage.setItem(STORAGE_TOKEN, token);
-    const { _id: id } = jwt_decode<Pick<IUser, '_id'>>(token);
+    const { id } = jwt_decode<{ id: string }>(token);
     const user = await getUser({ userId: id }).unwrap();
     if (!user.name) return console.log('Не удалось получить пользователя');
     dispatch(setUser(user));
