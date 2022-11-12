@@ -45,7 +45,7 @@ const UserPanel = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    await addBoard({ title: inputValue, owner: 'Inna', users: ['Inna'] });
+    await addBoard({ title: inputValue, owner: user!._id, users: ['Inna'] });
     closeModal();
     setInputValue('');
   }
