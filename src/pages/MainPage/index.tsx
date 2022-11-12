@@ -9,9 +9,10 @@ import { IBoardId } from 'shared/api/lib/types';
 
 const MainPage = () => {
   const { t } = useTranslation();
-  const [delBoard] = useDeleteBoardMutation();
+  const [deleteBoard] = useDeleteBoardMutation();
+
   const handleBoardDelete = async (id: IBoardId) => {
-    await delBoard(id);
+    await deleteBoard(id);
   };
   const { isLoading, isError, data } = useGetBoardsQuery();
 
@@ -23,7 +24,7 @@ const MainPage = () => {
         {data?.map((board) => (
           <Card key={board._id} className="flex justify-between">
             <h1 className="text-xl">{board.title}</h1>
-            <Button onClick={() => handleBoardDelete(board._id as unknown as IBoardId)}>Del</Button>
+            <Button onClick={() => handleBoardDelete({ boardId: board._id })}>Del</Button>
           </Card>
         ))}
       </div>
