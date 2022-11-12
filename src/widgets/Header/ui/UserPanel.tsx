@@ -90,14 +90,16 @@ const UserPanel = () => {
       </Menu>
       <Modal isOpen={isOpen} closeModal={closeModal}>
         <h3 className="leading-loose text-lg">{t('newBoard')}</h3>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <Input
             placeholder={t('enterName')}
             type="text"
             value={inputValue}
             onChange={onChange}
           ></Input>
-          <Button type="submit">{t('save')}</Button>
+          <Button type="submit" className="place-self-end">
+            {t('save')}
+          </Button>
         </form>
       </Modal>
     </>

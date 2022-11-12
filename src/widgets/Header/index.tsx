@@ -7,13 +7,12 @@ import LangSwitcher from 'widgets/Header/ui/LangSwitcher';
 import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
 
-import { ROUTE_PATH, STORAGE_TOKEN } from 'shared/common/constants';
+import { ROUTE_PATH } from 'shared/common/constants';
 import AuthBtns from './ui/AuthBtns';
 import UserPanel from './ui/UserPanel';
 import useScrollY from './model/useScrollY';
 import clsx from 'clsx';
 import { memo } from 'react';
-import { useAddBoardMutation } from 'shared/api/model/boardsSlice';
 
 const Header = () => {
   const user = useAppSelector(getUser);
