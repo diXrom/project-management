@@ -8,7 +8,7 @@ const Card: FC<ICard> = ({ children, className, ...props }) => (
     {...props}
     className={clsx(
       className,
-      'shadow-md rounded-lg bg-white overflow-hidden transition duration-300'
+      'p-6 shadow-md rounded-lg bg-white overflow-hidden transition duration-300'
     )}
   >
     {children}

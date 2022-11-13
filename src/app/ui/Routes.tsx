@@ -7,6 +7,7 @@ import EditProfile from 'pages/EditProfile';
 import Layout from 'widgets/Layout';
 import { ROUTE_PATH } from 'shared/common/constants';
 import 'app/lib/style.scss';
+import BoardPage from 'pages/BoardPage';
 
 const MainRoutes = () => (
   <Router>
@@ -16,7 +17,9 @@ const MainRoutes = () => (
         <Route path={ROUTE_PATH.REGISTRATION} element={<Registration />} />
         <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
         <Route path={ROUTE_PATH.EDIT} element={<EditProfile />} />
-        <Route path={ROUTE_PATH.BOARDS} element={<div>BOARDS</div>} />
+        <Route path={ROUTE_PATH.BOARDS} element={<MainPage />} />
+
+        <Route path={ROUTE_PATH.BOARD} element={<BoardPage />} />
       </Route>
     </Routes>
   </Router>

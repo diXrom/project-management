@@ -1,24 +1,25 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { VscProject } from 'react-icons/vsc';
 
 import LangSwitcher from 'widgets/Header/ui/LangSwitcher';
+
 import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
+
 import { ROUTE_PATH } from 'shared/common/constants';
 import AuthBtns from './ui/AuthBtns';
 import UserPanel from './ui/UserPanel';
 import useScrollY from './model/useScrollY';
 import clsx from 'clsx';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const user = useAppSelector(getUser);
   //Пока отлючена анимация перехода стики хедера
   /*  const scrollY = useScrollY(); */
   useTranslation();
-
   return (
     <header
       className={clsx(

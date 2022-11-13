@@ -10,7 +10,7 @@ import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
 import { MdPostAdd } from 'react-icons/md';
 import Button from 'shared/components/Button';
-import Modal from 'shared/components/Modal';
+import AddBoardModal from './AddBoardModal';
 
 const transition = {
   enter: 'transition ease-out duration-100',
@@ -73,9 +73,7 @@ const UserPanel = () => {
           </Menu.Items>
         </Transition>
       </Menu>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <div>Добавить доску</div>
-      </Modal>
+      <AddBoardModal isOpen={isOpen} closeModal={closeModal} />
     </>
   );
 };
