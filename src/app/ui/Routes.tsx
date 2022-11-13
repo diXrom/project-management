@@ -8,12 +8,13 @@ import Layout from 'widgets/Layout';
 import { ROUTE_PATH } from 'shared/common/constants';
 import 'app/lib/style.scss';
 import BoardPage from 'pages/BoardPage';
+import WelcomePage from 'pages/WelcomePage';
 
 const MainRoutes = () => (
   <Router>
     <Routes>
       <Route path={ROUTE_PATH.INDEX} element={<Layout />}>
-        <Route index element={<MainPage />} />
+        <Route index element={<WelcomePage />} />
         <Route path={ROUTE_PATH.REGISTRATION} element={<Registration />} />
         <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
         <Route path={ROUTE_PATH.EDIT} element={<EditProfile />} />
