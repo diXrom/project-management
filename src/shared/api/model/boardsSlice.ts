@@ -13,7 +13,10 @@ export const extendedApiSlice = managerAPI.injectEndpoints({
     }),
     getBoardsSetId: build.query<IBoard[], IUserId>({
       query: ({ userId }) => `${API_PATH.BOARDSSET}/${userId}`,
-      providesTags: (_, __, arg) => [{ type: TAGS.BOARDS, id: arg.userId }],
+      providesTags: (result) =>
+        result
+          ? [TAGS.BOARDS, ...result.map(({ _id }) => ({ type: TAGS.BOARDS, id: _id }))]
+          : [TAGS.BOARDS],
     }),
     getBoards: build.query<IBoard[], void>({
       query: () => API_PATH.BOARDS,
