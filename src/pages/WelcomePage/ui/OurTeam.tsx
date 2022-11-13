@@ -45,7 +45,7 @@ const listVariants = {
 
 const OurTeam = () => {
   return (
-    <section className="container max-w-screen-xl">
+    <section className="container max-w-screen-xl mb-40">
       <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">Our Team</h2>
       <div className="cards flex flex-col lg:flex-row">
         {AUTHORS_INFO.map((author, idx) => (
@@ -54,7 +54,6 @@ const OurTeam = () => {
             className="card flex flex-col sm:w-full lg:w-1/3 mb-8 lg:mb-0 p-5 shadow-lg shadow-slate-200 rounded-xl mr-3 ml-3 bg-slate-50"
             variants={listVariants}
             initial="hidden"
-            // animate="visible"
             custom={idx}
             whileInView="visible"
             viewport={{ once: true }}
