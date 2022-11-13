@@ -13,12 +13,13 @@ import UserPanel from './ui/UserPanel';
 import useScrollY from './model/useScrollY';
 import clsx from 'clsx';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const user = useAppSelector(getUser);
   //Пока отлючена анимация перехода стики хедера
   /*  const scrollY = useScrollY(); */
-
+  useTranslation();
   return (
     <header
       className={clsx(
