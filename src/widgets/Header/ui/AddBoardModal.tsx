@@ -19,7 +19,9 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
 
   const [inputValue, setInputValue] = useState('');
   const [addBoard] = useAddBoardMutation();
-  const { data } = useGetUsersQuery();
+  const { data } = useGetUsersQuery(undefined, {
+    skip: !isOpen,
+  });
 
   const [checkedUsers, setCheckedUsers] = useState<string[]>([]);
 
