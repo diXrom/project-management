@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { FormEvent, Fragment, memo, useState } from 'react';
+import { Fragment, memo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { FaSignOutAlt, FaUserEdit } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,7 @@ import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
 import { MdPostAdd } from 'react-icons/md';
 import Button from 'shared/components/Button';
-import Modal from 'shared/components/Modal';
-import Input from 'shared/components/Input';
-import { useAddBoardMutation } from 'shared/api/model/boardsSlice';
+import AddBoardModal from './AddBoardModal';
 
 const transition = {
   enter: 'transition ease-out duration-100',
@@ -36,19 +34,6 @@ const UserPanel = () => {
     { path: ROUTE_PATH.INDEX, icon: <FaSignOutAlt className="w-4 h-4" />, text: 'logout' },
   ];
 
-  const [inputValue, setInputValue] = useState('');
-
-  function onChange(event: React.FormEvent<HTMLInputElement>) {
-    setInputValue(event.currentTarget.value);
-  }
-  const [addBoard] = useAddBoardMutation();
-
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    await addBoard({ title: inputValue, owner: user!._id, users: ['Inna'] });
-    closeModal();
-    setInputValue('');
-  }
   return (
     <>
       <Button
@@ -88,20 +73,7 @@ const UserPanel = () => {
           </Menu.Items>
         </Transition>
       </Menu>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <h3 className="leading-loose text-lg">{t('newBoard')}</h3>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <Input
-            placeholder={t('enterName')}
-            type="text"
-            value={inputValue}
-            onChange={onChange}
-          ></Input>
-          <Button type="submit" className="place-self-end">
-            {t('save')}
-          </Button>
-        </form>
-      </Modal>
+      <AddBoardModal isOpen={isOpen} closeModal={closeModal} />
     </>
   );
 };

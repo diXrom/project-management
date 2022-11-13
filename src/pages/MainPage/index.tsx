@@ -5,9 +5,9 @@ import { fade, motionVariants } from 'shared/common/styles';
 import Card from 'shared/components/Card';
 import Button from 'shared/components/Button';
 import { FaTrashAlt } from 'react-icons/fa';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Modal from 'shared/components/Modal';
-import CardSkeleton from 'widgets/Header/ui/CardSkeleton';
+import CardSkeleton from 'pages/MainPage/ui/CardSkeleton';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATH } from 'shared/common/constants';
 
@@ -16,13 +16,16 @@ const MainPage = () => {
   const [isOpen, setOpen] = useState(false);
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
-  const [boardId, setBoardId] = useState('');
+
+  const boardIdRef = useRef<string>();
 
   const [deleteBoard] = useDeleteBoardMutation();
 
   const handleBoardDelete = async () => {
-    await deleteBoard({ boardId });
-    closeModal();
+    if (boardIdRef.current) {
+      await deleteBoard({ boardId: boardIdRef.current });
+      closeModal();
+    }
   };
   const { isLoading, isError, data } = useGetBoardsQuery();
 
@@ -30,16 +33,17 @@ const MainPage = () => {
     <motion.div variants={fade} {...motionVariants}>
       {isError && <p className="text-center text-red-500">{t('error')}</p>}
       {isLoading && <CardSkeleton />}
-      <div className="container mx-autoflex flex flex-col gap-4 ">
+      <div className="container mx-auto flex flex-col gap-4 ">
         {data?.map((board) => (
           <Link key={board._id} to={`${ROUTE_PATH.BOARDS}/${board._id}`}>
             <Card className="flex justify-between cursor-pointer	hover:shadow-lg">
               <h1 className="text-xl">{board.title}</h1>
               <Button
                 className="hidden items-center gap-1 !border !border-white sm:flex"
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
                   openModal();
-                  setBoardId(board._id);
+                  boardIdRef.current = board._id;
                 }}
               >
                 <FaTrashAlt className="w-4 h-4" /> {t('delete')}
