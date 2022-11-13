@@ -39,7 +39,7 @@ const MainPage = () => {
             <Card className="flex justify-between cursor-pointer	hover:shadow-lg">
               <h1 className="text-xl">{board.title}</h1>
               <Button
-                className="hidden items-center gap-1 !border !border-white sm:flex"
+                className="items-center gap-1 !border !border-white flex"
                 onClick={(event) => {
                   event.preventDefault();
                   openModal();
