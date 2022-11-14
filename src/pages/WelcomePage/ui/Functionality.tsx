@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import imgBoards from '../../../assets/main/features/boards.webp';
 import imgLists from '../../../assets/main/features/lists.webp';
@@ -41,7 +41,7 @@ const Functionality = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <section className="container max-w-screen-xl mb-40">
+    <section className="container max-w-screen-xl mb-28" id="more">
       <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">What is NoTrello</h2>
       <div className="flex flex-row items-center justify-center">
         <div className="w-full max-w-100 md:max-w-md px-2 py-2 sm:px-0 shadow-lg shadow-slate-800/[0.1] rounded-xl mr-3 ml-3 bg-slate-50">

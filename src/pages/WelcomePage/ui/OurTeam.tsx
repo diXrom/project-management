@@ -45,7 +45,7 @@ const listVariants = {
 
 const OurTeam = () => {
   return (
-    <section className="container max-w-screen-xl mb-40">
+    <section className="container max-w-screen-xl mb-28">
       <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">Our Team</h2>
       <div className="cards flex flex-col lg:flex-row">
         {AUTHORS_INFO.map((author, idx) => (

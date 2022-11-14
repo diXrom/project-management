@@ -1,6 +1,8 @@
 import React from 'react';
 import Lottie from 'lottie-react';
 import heroAnimation from '../../../assets/main/hero-lottie.json';
+import { ROUTE_PATH } from 'shared/common/constants';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -19,12 +21,17 @@ const HeroSection = () => {
           Improve your team collaboration now with our handy tool
         </p>
         <div className="hero-btns flex flex-row gap-5">
-          <div className="start-btn bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto cursor-pointer">
-            Try for free
-          </div>
-          <div className="more-btn bg-blue-200 hover:bg-blue-300 transition duration-300 text-blue-600 font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto cursor-pointer">
-            Learn more
-          </div>
+          <Link to={ROUTE_PATH.REGISTRATION}>
+            <div className="start-btn bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto cursor-pointer">
+              Try for free
+            </div>
+          </Link>
+
+          <Link to="#more">
+            <div className="more-btn bg-blue-200 hover:bg-blue-300 transition duration-300 text-blue-600 font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto cursor-pointer">
+              Learn more
+            </div>
+          </Link>
         </div>
       </div>
       <div className="max-w-2xl" style={{ filter: 'hue-rotate(-30deg)' }}>
