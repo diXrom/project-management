@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import imgBoards from '../../../assets/main/features/boards.webp';
 import imgLists from '../../../assets/main/features/lists.webp';
 import imgCards from '../../../assets/main/features/cards.webp';
-import { useTranslation } from 'react-i18next';
 
 const tabVariants = {
   visible: {

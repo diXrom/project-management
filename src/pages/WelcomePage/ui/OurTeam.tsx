@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import timur from '../../../assets/main/authors/timur.jpg';
 import inna from '../../../assets/main/authors/inna.jpg';
 import vyach from '../../../assets/main/authors/vyach.jpg';
-import { useTranslation } from 'react-i18next';
 
 const listVariants = {
   visible: (i: number) => ({
