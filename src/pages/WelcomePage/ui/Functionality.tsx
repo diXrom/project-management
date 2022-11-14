@@ -1,23 +1,41 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
+import { motion, AnimatePresence } from 'framer-motion';
 
+import imgBoards from '../../../assets/main/features/boards.webp';
 import imgLists from '../../../assets/main/features/lists.webp';
+import imgCards from '../../../assets/main/features/cards.webp';
 
 const FEATURES = [
   {
     name: 'Boards',
     desc: 'Trello boards keep tasks organized and work moving forward. In a glance, see everything from “things to do” to “aww yeah, we did it!”',
+    img: imgBoards,
   },
   {
     name: 'Lists',
     desc: 'The different stages of a task. Start as simple as To Do, Doing or Done—or build a workflow custom fit to your team`s needs. There`s no wrong way to Trello.',
+    img: imgLists,
   },
   {
     name: 'Cards',
     desc: 'Cards represent tasks and ideas and hold all the information to get the job done. As you make progress, move cards across lists to show their status.',
+    img: imgCards,
   },
 ];
+
+const tabVariants = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
 
 const Functionality = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -35,7 +53,7 @@ const Functionality = () => {
                   className={({ selected }) =>
                     clsx(
                       'w-full rounded-lg py-2.5 text-md font-medium leading-5 text-blue-700',
-                      'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                      'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all duration-300',
                       selected
                         ? 'bg-white shadow'
                         : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
@@ -56,24 +74,38 @@ const Functionality = () => {
                   )}
                 >
                   <ul>
-                    <li key={item.name} className="relative rounded-md p-3 hover:bg-gray-100">
+                    <motion.li
+                      key={item.name}
+                      className="relative rounded-md p-3"
+                      variants={tabVariants}
+                    >
                       <h3 className="text-xl font-bold leading-5">{item.name}</h3>
 
                       <div className="mt-1 flex text-lg font-normal leading-12 text-gray-500 min-h-[120px]">
                         {item.desc}
                       </div>
                       <div className="w-full max-w-100 block md:hidden -ml-100">
-                        <img src={imgLists} alt="imgLists" />
+                        <img src={item.img} alt="imgLists" />
                       </div>
-                    </li>
+                    </motion.li>
                   </ul>
                 </Tab.Panel>
               ))}
             </Tab.Panels>
           </Tab.Group>
         </div>
+
         <div className="w-full max-w-100 hidden md:block -ml-10 relative -z-10">
-          <img src={imgLists} alt="imgLists" />
+          {FEATURES.map((elem, idx) => (
+            <motion.img
+              key={elem.name}
+              src={elem.img}
+              alt={elem.name}
+              animate={currentTab === idx ? 'visible' : 'hidden'}
+              variants={tabVariants}
+              className={idx !== 0 ? 'absolute top-0 left-0' : ''}
+            />
+          ))}
         </div>
       </div>
     </section>
