@@ -3,30 +3,7 @@ import { motion } from 'framer-motion';
 import timur from '../../../assets/main/authors/timur.jpg';
 import inna from '../../../assets/main/authors/inna.jpg';
 import vyach from '../../../assets/main/authors/vyach.jpg';
-
-const AUTHORS_INFO = [
-  {
-    name: 'Timur Tolegen',
-    role: 'Teamlead',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.',
-    photo: timur,
-  },
-  {
-    name: 'Inna Malinovskaya',
-    role: 'Developer',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.',
-    photo: inna,
-  },
-  {
-    name: 'Vyacheslav Grabovskiy',
-    role: 'Developer',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.',
-    photo: vyach,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const listVariants = {
   visible: (i: number) => ({
@@ -44,9 +21,32 @@ const listVariants = {
 };
 
 const OurTeam = () => {
+  const { t } = useTranslation();
+
+  const AUTHORS_INFO = [
+    {
+      name: t('nameTimur'),
+      role: t('teamlead'),
+      description: t('descTimur'),
+      photo: timur,
+    },
+    {
+      name: t('nameInna'),
+      role: t('developer'),
+      description: t('descInna'),
+      photo: inna,
+    },
+    {
+      name: t('nameVyach'),
+      role: t('developer'),
+      description: t('descVyach'),
+      photo: vyach,
+    },
+  ];
+
   return (
     <section className="container max-w-screen-xl mb-28">
-      <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">Our Team</h2>
+      <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">{t('teamTitle')}</h2>
       <div className="cards flex flex-col lg:flex-row">
         {AUTHORS_INFO.map((author, idx) => (
           <motion.div

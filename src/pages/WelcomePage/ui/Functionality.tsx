@@ -6,24 +6,7 @@ import { motion } from 'framer-motion';
 import imgBoards from '../../../assets/main/features/boards.webp';
 import imgLists from '../../../assets/main/features/lists.webp';
 import imgCards from '../../../assets/main/features/cards.webp';
-
-const FEATURES = [
-  {
-    name: 'Boards',
-    desc: 'Trello boards keep tasks organized and work moving forward. In a glance, see everything from “things to do” to “aww yeah, we did it!”',
-    img: imgBoards,
-  },
-  {
-    name: 'Lists',
-    desc: 'The different stages of a task. Start as simple as To Do, Doing or Done—or build a workflow custom fit to your team`s needs. There`s no wrong way to Trello.',
-    img: imgLists,
-  },
-  {
-    name: 'Cards',
-    desc: 'Cards represent tasks and ideas and hold all the information to get the job done. As you make progress, move cards across lists to show their status.',
-    img: imgCards,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const tabVariants = {
   visible: {
@@ -39,10 +22,29 @@ const tabVariants = {
 
 const Functionality = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const { t } = useTranslation();
+
+  const FEATURES = [
+    {
+      name: t('funcBoardsTitle'),
+      desc: t('funcBoardsDesc'),
+      img: imgBoards,
+    },
+    {
+      name: t('funcListsTitle'),
+      desc: t('funcListsDesc'),
+      img: imgLists,
+    },
+    {
+      name: t('funcCardsTitle'),
+      desc: t('funcCardsDesc'),
+      img: imgCards,
+    },
+  ];
 
   return (
     <section className="container max-w-screen-xl mb-28" id="more">
-      <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">What is NoTrello</h2>
+      <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">{t('funcsTitle')}</h2>
       <div className="flex flex-row items-center justify-center">
         <div className="w-full max-w-100 md:max-w-md px-2 py-2 sm:px-0 shadow-lg shadow-slate-800/[0.1] rounded-xl mr-3 ml-3 bg-slate-50">
           <Tab.Group selectedIndex={currentTab} onChange={setCurrentTab}>
