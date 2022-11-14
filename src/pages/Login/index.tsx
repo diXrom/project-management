@@ -1,39 +1,59 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { Link, Navigate } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa';
 
-import { useSignInMutation } from 'shared/api/model/authSlice';
-import { useGetUserMutation } from 'shared/api/model/usersSlice';
-import { ROUTE_PATH, STORAGE_TOKEN } from 'shared/common/constants';
+import { ROUTE_PATH } from 'shared/common/constants';
 import { fade, motionVariants } from 'shared/common/styles';
 import Button from 'shared/components/Button';
-import { useAppDispatch } from 'shared/store/model/hooks';
-import { setUser } from 'shared/store/model/authSlice';
+import Card from 'shared/components/Card';
+import { useAppSelector } from 'shared/store/model/hooks';
+import { getUser } from 'shared/store/model/selectors';
+import useLogin from './model/useLogin';
+import InputAuth from 'shared/components/InputAuth';
+import { authBtnStyle } from 'pages/Registration/lib/styles';
+import useGetInputs from 'pages/Registration/model/useGetInputs';
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const [signIn] = useSignInMutation();
-  const [getUser] = useGetUserMutation();
-  const signInHandle = async () => {
-    const auth = { login: 'dixrom', password: 'dixrom' };
-    const { token } = await signIn(auth).unwrap();
-    if (!token) return console.log('Не удалось войти');
-    localStorage.setItem(STORAGE_TOKEN, token);
-    const { id } = jwt_decode<{ id: string }>(token);
-    const user = await getUser({ userId: id }).unwrap();
-    if (!user.name) return console.log('Не удалось получить пользователя');
-    dispatch(setUser(user));
-  };
+  const inputs = useGetInputs().slice(1);
+  const { t, register, handleSubmit, onSubmit, errors, error, isLoad, setError } = useLogin();
+
+  if (useAppSelector(getUser)) return <Navigate to={ROUTE_PATH.BOARDS} />;
+
   return (
-    <motion.div variants={fade} {...motionVariants}>
-      <div className="flex gap-2">
-        <Button outline onClick={signInHandle}>
-          sign In
-        </Button>
-        <Link to={ROUTE_PATH.REGISTRATION}>
-          <Button>sign Up</Button>
-        </Link>
-      </div>
+    <motion.div variants={fade} {...motionVariants} className="mt-10">
+      <Card className="flex justify-center max-w-xs p-3 mx-auto sm:p-6">
+        <form className="space-y-3 max-w-max sm:w-60" onSubmit={handleSubmit(onSubmit)}>
+          <div className="pb-2 text-2xl font-semibold text-center">{t('signIn')}</div>
+          {inputs.map((input) => (
+            <InputAuth
+              key={input.placeholder}
+              placeholder={input.placeholder}
+              type={input.type}
+              register={register}
+              name={input.name}
+              error={errors}
+              setError={setError}
+              schema={input.shema}
+            >
+              {input.icon}
+            </InputAuth>
+          ))}
+          {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+          <Button disabled={isLoad} type="submit" className={authBtnStyle}>
+            {isLoad && <FaSpinner className="w-5 h-5 animate-spin" />}
+            {t('continue')}
+          </Button>
+          <div className="text-center text-gray-500">
+            {t('haventAcc')}
+            <Link
+              to={ROUTE_PATH.REGISTRATION}
+              className="block text-gray-800 sm:inline sm:ml-1 hover:underline"
+            >
+              {t('signUp')}
+            </Link>
+          </div>
+        </form>
+      </Card>
     </motion.div>
   );
 };
