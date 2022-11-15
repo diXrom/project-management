@@ -1,8 +1,8 @@
-import { STORAGE_TOKEN } from 'shared/common/constants';
+import { getToken } from 'shared/common/utils';
 
 const prepareHeaders = (headers: Headers) => {
   headers.set('Accept', 'application/json');
-  headers.set('Authorization', `Bearer ${localStorage.getItem(STORAGE_TOKEN) || ''}`);
+  headers.set('Authorization', `Bearer ${getToken() || ''}`);
   return headers;
 };
 

@@ -40,4 +40,24 @@
   "descVyach": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.",
   "teamlead": "Teamlead",
   "developer": "Developer"
+   "addBoard": "Add board",
+   
+  "failedToRegister": "This profile already exists",
+  "failedToLogin": "No such profile found",
+  "failedToEdit": "Failed to edit profile",
+  "failedToDelete": "Failed to delete profile",
+  "name": "Name",
+  "login": "Login",
+  "password": "Password",
+  "required": "This field is required",
+  "minLength": "Field length, minimum",
+  "4characters": " 4 characters",
+  "8characters": " 8 characters",
+  "continue": "Continue",
+  "cancel": "Cancel",
+  "haveAcc": "Have an account?",
+  "haventAcc":"Don't have an account?",
+  "deleteProfile": "Delete profile",
+  "newPassword": "New password",
+  "areYouSure": "Do you really want to delete?"
 }

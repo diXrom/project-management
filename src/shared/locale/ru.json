@@ -40,4 +40,23 @@
   "descVyach": "Рыба-текст на русском dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.",
   "teamlead": "Тимлид",
   "developer": "Разработчик"
+
+  "failedToRegister": "Такой профиль уже создан",
+  "failedToLogin": "Такой профиль не найден",
+  "failedToEdit":"Не удалось изменить профиль",
+  "failedToDelete": "Не удалось удалить профиль",
+  "name": "Имя",
+  "login": "Логин",
+  "password": "Пароль",
+  "required": "Это поле обязательное",
+  "minLength":"Длина поля, минимум",
+  "4characters": " 4 символа",
+  "8characters": " 8 символов",
+  "continue": "Продолжить",
+  "cancel": "Отменить",
+  "haveAcc": "Есть аккаунт?",
+  "haventAcc":"Нет аккаунта?",
+  "deleteProfile": "Удалить профиль",
+  "newPassword":"Новый пароль",
+  "areYouSure": "Вы действительно хотите удалить?"
 }

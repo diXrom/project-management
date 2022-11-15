@@ -1,13 +1,15 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 
 interface IModal {
   isOpen: boolean;
   closeModal: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
-const Modal = ({ isOpen, closeModal, children }: IModal) => {
+const Modal = ({ isOpen, closeModal, children, className = 'max-w-md ' }: IModal) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -34,7 +36,12 @@ const Modal = ({ isOpen, closeModal, children }: IModal) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Panel
+                className={clsx(
+                  'w-full p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl',
+                  className
+                )}
+              >
                 {children}
               </Dialog.Panel>
             </Transition.Child>
