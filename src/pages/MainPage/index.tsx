@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useDeleteBoardMutation, useGetBoardsQuery } from 'shared/api/model/boardsSlice';
+import { useDeleteBoardMutation, useGetBoardsSetIdQuery } from 'shared/api/model/boardsSlice';
 import { useTranslation } from 'react-i18next';
 import { fade, motionVariants } from 'shared/common/styles';
 import Card from 'shared/components/Card';
@@ -10,13 +10,15 @@ import Modal from 'shared/components/Modal';
 import CardSkeleton from 'pages/MainPage/ui/CardSkeleton';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATH } from 'shared/common/constants';
+import { useAppSelector } from 'shared/store/model/hooks';
+import { getUser } from 'shared/store/model/selectors';
 
 const MainPage = () => {
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
-
+  const user = useAppSelector(getUser);
   const boardIdRef = useRef<string>();
 
   const [deleteBoard] = useDeleteBoardMutation();
@@ -27,7 +29,13 @@ const MainPage = () => {
       closeModal();
     }
   };
-  const { isLoading, isError, data } = useGetBoardsQuery();
+
+  const { isLoading, isError, data } = useGetBoardsSetIdQuery(
+    { userId: user?._id ?? '' },
+    {
+      skip: !Boolean(user?._id),
+    }
+  );
 
   return (
     <motion.div variants={fade} {...motionVariants}>
