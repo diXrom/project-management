@@ -47,11 +47,11 @@ const OurTeam = () => {
   return (
     <section className="container max-w-screen-xl mb-28">
       <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">{t('teamTitle')}</h2>
-      <div className="cards flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row">
         {AUTHORS_INFO.map((author, idx) => (
           <motion.div
             key={author.name}
-            className="card flex flex-col sm:w-full lg:w-1/3 mb-8 lg:mb-0 p-5 shadow-lg shadow-slate-200 rounded-xl mr-3 ml-3 bg-slate-50"
+            className="flex flex-col sm:w-full lg:w-1/3 mb-8 lg:mb-0 p-5 shadow-lg shadow-slate-200 rounded-xl mr-3 ml-3 bg-slate-50"
             variants={listVariants}
             initial="hidden"
             custom={idx}
@@ -60,7 +60,7 @@ const OurTeam = () => {
           >
             <div className="flex flex-row mb-2">
               <img className="w-[64px] h-[64px] rounded" src={author.photo}></img>
-              <div className="info ml-5">
+              <div className="ml-5">
                 <div className="text-xl font-bold">{author.name}</div>
                 <div className="text-md font-bold text-slate-500">{author.role}</div>
               </div>

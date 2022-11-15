@@ -3,6 +3,7 @@ import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Element as ScrollElement } from 'react-scroll';
 
 import imgBoards from '../../../assets/main/features/boards.webp';
 import imgLists from '../../../assets/main/features/lists.webp';
@@ -44,6 +45,7 @@ const Functionality = () => {
 
   return (
     <section className="container max-w-screen-xl mb-28" id="more">
+      <ScrollElement name="more"></ScrollElement>
       <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">{t('funcsTitle')}</h2>
       <div className="flex flex-row items-center justify-center">
         <div className="w-full max-w-100 md:max-w-md px-2 py-2 sm:px-0 shadow-lg shadow-slate-800/[0.1] rounded-xl mr-3 ml-3 bg-slate-50">
@@ -80,6 +82,8 @@ const Functionality = () => {
                       key={item.name}
                       className="relative rounded-md p-3"
                       variants={tabVariants}
+                      initial="hidden"
+                      animate={currentTab === idx ? 'visible' : 'hidden'}
                     >
                       <h3 className="text-xl font-bold leading-5">{item.name}</h3>
 
