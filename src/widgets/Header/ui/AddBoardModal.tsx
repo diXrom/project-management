@@ -19,7 +19,7 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
 
   const [inputValue, setInputValue] = useState('');
   const [addBoard] = useAddBoardMutation();
-  const { data } = useGetUsersQuery(undefined, {
+  const { data: users } = useGetUsersQuery(undefined, {
     skip: !isOpen,
   });
 
@@ -47,7 +47,7 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
           onChange={onChange}
         ></Input>
         <p>{t('invite')}</p>
-        {data
+        {users
           ?.filter((item) => item._id !== user?._id)
           .map((item, index) => {
             return (
@@ -58,11 +58,9 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
                   id={`custom-checkbox-${index}`}
                   value={item._id}
                   onChange={(e) => {
-                    // add to list
                     if (e.target.checked) {
                       setCheckedUsers([...checkedUsers, item._id]);
                     } else {
-                      // remove from list
                       setCheckedUsers(checkedUsers.filter((user) => user !== item._id));
                     }
                   }}
