@@ -4,6 +4,7 @@ const ROUTE_PATH = {
   REGISTRATION: '/registration',
   EDIT: '/edit',
   BOARDS: '/boards',
+  BOARD: '/boards/:boardId',
 };
 
 const STORAGE_TOKEN = 'DMV_TOKEN';

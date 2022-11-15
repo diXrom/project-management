@@ -5,6 +5,7 @@ import { FaUserTie } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
 
+import AddBoardModal from './AddBoardModal';
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal';
 import useUserPanel from '../model/useUserPanel';
@@ -45,9 +46,7 @@ const UserPanel = () => {
           </Menu.Items>
         </Transition>
       </Menu>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <div>Добавить доску</div>
-      </Modal>
+      <AddBoardModal isOpen={isOpen} closeModal={closeModal} />
     </>
   );
 };

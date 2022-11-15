@@ -1,6 +1,8 @@
 import { Routes, Route, HashRouter as Router } from 'react-router-dom';
 
+import WelcomePage from 'pages/WelcomePage';
 import MainPage from 'pages/MainPage';
+import BoardPage from 'pages/BoardPage';
 import Registration from 'pages/Registration';
 import Login from 'pages/Login';
 import Layout from 'widgets/Layout';
@@ -17,11 +19,12 @@ const MainRoutes = () => {
     <Router>
       <Routes>
         <Route path={ROUTE_PATH.INDEX} element={<Layout />}>
-          <Route index element={<MainPage />} />
+          <Route index element={<WelcomePage />} />
           <Route path={ROUTE_PATH.REGISTRATION} element={<Registration />} />
           <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
           <Route path={ROUTE_PATH.EDIT} element={PrivateRoutes.EditProfile} />
-          <Route path={ROUTE_PATH.BOARDS} element={<div>BOARDS</div>} />
+          <Route path={ROUTE_PATH.BOARDS} element={<MainPage />} />
+          <Route path={ROUTE_PATH.BOARD} element={<BoardPage />} />
         </Route>
       </Routes>
     </Router>

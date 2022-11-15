@@ -17,7 +17,6 @@ const Header = () => {
   const user = useAppSelector(getUser);
   /*  const scrollY = useScrollY(); */ //Пока отлючена анимация перехода стики хедера
   useTranslation();
-
   return (
     <header
       className={clsx(
