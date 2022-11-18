@@ -71,7 +71,7 @@ const Column: React.FC<{ title: string; boardId: string; columnId: string }> = (
           ></input>
 
           <div
-            className="bg-red-100 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
+            className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
             onClick={() => handleDeleteClick()}
           >
             <FaBan />

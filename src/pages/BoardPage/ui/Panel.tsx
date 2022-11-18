@@ -6,6 +6,7 @@ import { ROUTE_PATH } from 'shared/common/constants';
 import { useAddColumnMutation, useGetColumnsQuery } from 'shared/api/model/columnsSlice';
 import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
 import { IBoardId } from 'shared/api/lib/types';
+import Modal from 'shared/components/Modal';
 
 const Panel = () => {
   const [addColumn] = useAddColumnMutation();
@@ -32,6 +33,11 @@ const Panel = () => {
       >
         <FaAngleLeft />
       </Link>
+
+      <Modal isOpen={false} closeModal={() => {}}>
+        {' '}
+        sad
+      </Modal>
       <div
         onClick={() => handleNewColumnClick()}
         className={clsx(
