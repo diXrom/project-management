@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  @apply bg-slate-100
+body {
+  @apply bg-slate-100;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.custom-scroll {
+  &::-webkit-scrollbar {
+    @apply bg-slate-200 rounded-md h-2 w-2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-md;
+
+    &:hover {
+      @apply bg-slate-400;
+    }
+  }
 }
