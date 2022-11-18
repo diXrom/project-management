@@ -16,8 +16,11 @@ input:-webkit-autofill:focus {
     @apply bg-slate-200 rounded-md h-2 w-2;
   }
 
+  &::-webkit-scrollbar-track {
+  }
+
   &::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 rounded-md;
+    @apply bg-slate-300 rounded-md m-2 p-2;
 
     &:hover {
       @apply bg-slate-400;
