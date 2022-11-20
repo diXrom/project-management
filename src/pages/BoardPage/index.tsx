@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fade, motionVariants } from 'shared/common/styles';
-import Panel from './ui/Panel';
+import Panel from './ui/Panel/Panel';
 import { useParams } from 'react-router-dom';
 import Field from './ui/Field/Field';
 import { useState } from 'react';
@@ -10,9 +10,9 @@ import {
   useGetColumnsQuery,
 } from 'shared/api/model/columnsSlice';
 import { IColumnId } from 'shared/api/lib/types';
-import NewColModal from './ui/NewColModal';
-import DelColModal from './ui/DelColModal';
-import FieldSkeleton from './ui/Field/FieldSkeleton';
+import NewColModal from './ui/Modals/NewColModal';
+import DelColModal from './ui/Modals/DelColModal';
+import FieldSkeleton from './ui/Field/Skeleton/FieldSkeleton';
 
 export default function BoardPage() {
   const { boardId } = useParams();

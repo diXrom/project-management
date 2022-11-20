@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Input from '../../../shared/components/Input';
+import Input from '../../../../shared/components/Input';
 import React, { useState } from 'react';
 import Modal from 'shared/components/Modal';
 import { useTranslation } from 'react-i18next';
