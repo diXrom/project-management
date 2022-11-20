@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Task from './Task';
 import { FaBan, FaPlus } from 'react-icons/fa';
-import { useDeleteColumnMutation, useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
+import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
 import { IColumnId } from 'shared/api/lib/types';
+import { useTranslation } from 'react-i18next';
 
 const Column: React.FC<{
   title: string;
@@ -12,6 +13,7 @@ const Column: React.FC<{
   order: number;
   openModalDelCol: ({ columnId }: IColumnId) => void;
 }> = ({ title, boardId, columnId, order, openModalDelCol }) => {
+  const { t } = useTranslation();
   const [localTitle, setLocalTitle] = useState(title);
   const [isEditTitle, setIsEditTitle] = useState(false);
 
@@ -32,7 +34,6 @@ const Column: React.FC<{
           setIsEditTitle(false);
         }
       };
-
       document.addEventListener('click', endEditTitle);
       return () => {
         document.removeEventListener('click', endEditTitle);
@@ -40,11 +41,8 @@ const Column: React.FC<{
     }
   }, [applyColumnTitle, boardId, columnId, isEditTitle, localTitle, order]);
 
-  // const [deleteColumn] = useDeleteColumnMutation();
-
   const handleDeleteClick = () => {
     openModalDelCol({ columnId });
-    // delColumn({ boardId: boardId, columnId: columnId });
   };
 
   return (
@@ -98,7 +96,8 @@ const Column: React.FC<{
           )}
         >
           <FaPlus className="mr-1 text-sm" />
-          Add new task
+
+          {t('newTask')}
         </div>
       </div>
     </div>

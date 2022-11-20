@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from 'shared/components/Modal';
 
 const DelColModal: React.FC<{
@@ -7,9 +8,11 @@ const DelColModal: React.FC<{
   hideModal: () => void;
   deleteColumn: () => void;
 }> = ({ isOpen, hideModal, deleteColumn }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isOpen} closeModal={() => hideModal()}>
-      <div className="font-semibold text-slate-800 mb-2">Are you sure want to delete column?</div>
+      <div className="font-semibold text-slate-800 mb-2">{t('wantToDelete')}</div>
       <div className="flex gap-3">
         <div
           onClick={() => hideModal()}
@@ -18,7 +21,7 @@ const DelColModal: React.FC<{
             'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
           )}
         >
-          Cancel
+          {t('cancel')}
         </div>
         <div
           onClick={() => deleteColumn()}
@@ -27,7 +30,7 @@ const DelColModal: React.FC<{
             'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
           )}
         >
-          Delete
+          {t('delete')}
         </div>
       </div>
     </Modal>

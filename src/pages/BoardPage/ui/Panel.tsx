@@ -1,14 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import { FaAngleLeft } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ROUTE_PATH } from 'shared/common/constants';
+import { useTranslation } from 'react-i18next';
 
 const Panel: React.FC<{ openModalNewCol: () => void }> = ({ openModalNewCol }) => {
-  const { boardId } = useParams();
-  // console.log(openModalNewCol);
-
-  // console.log(board);
+  const { t } = useTranslation();
 
   return (
     <div className="flex mb-5">
@@ -21,11 +19,6 @@ const Panel: React.FC<{ openModalNewCol: () => void }> = ({ openModalNewCol }) =
       >
         <FaAngleLeft />
       </Link>
-
-      {/* <Modal isOpen={false} closeModal={() => {}}>
-        {' '}
-        sad
-      </Modal> */}
       <div
         onClick={() => openModalNewCol()}
         className={clsx(
@@ -33,7 +26,7 @@ const Panel: React.FC<{ openModalNewCol: () => void }> = ({ openModalNewCol }) =
           'h-10 px-6 rounded-lg flex items-center justify-center cursor-pointer sm:w-auto ml-2'
         )}
       >
-        New Column
+        {t('newColumn')}
       </div>
     </div>
   );

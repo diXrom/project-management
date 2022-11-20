@@ -1,8 +1,8 @@
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { FaPlus } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { IColumn, IColumnId } from 'shared/api/lib/types';
-import { useGetColumnsQuery } from 'shared/api/model/columnsSlice';
 import Column from './Column';
 
 const Field: React.FC<{
@@ -10,16 +10,15 @@ const Field: React.FC<{
   openModalNewCol: () => void;
   openModalDelCol: ({ columnId }: IColumnId) => void;
 }> = ({ columns, openModalNewCol, openModalDelCol }) => {
+  const { t } = useTranslation();
   const { boardId } = useParams();
-
-  // console.log(columns);
 
   return (
     <div className="custom-scroll flex gap-4 overflow-x-auto w-full pb-5 pt-1 h-[calc(100vh-260px)]">
       {/* 260px = header+footer height */}
       {!!columns &&
-        boardId &&
-        columns.map((column, idx) => (
+        !!boardId &&
+        columns.map((column) => (
           <Column
             key={column._id}
             boardId={boardId}
@@ -38,7 +37,7 @@ const Field: React.FC<{
         )}
       >
         <FaPlus className="mr-1 text-sm" />
-        Add new column
+        {t('newColumn')}
       </div>
     </div>
   );

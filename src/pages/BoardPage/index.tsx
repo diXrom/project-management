@@ -2,18 +2,14 @@ import { motion } from 'framer-motion';
 import { fade, motionVariants } from 'shared/common/styles';
 import Panel from './ui/Panel';
 import { useParams } from 'react-router-dom';
-import Field from './ui/Field';
-import Modal from 'shared/components/Modal';
-import Input from '../../shared/components/Input';
+import Field from './ui/Field/Field';
 import { useState } from 'react';
-import clsx from 'clsx';
 import {
   useAddColumnMutation,
   useDeleteColumnMutation,
   useGetColumnsQuery,
 } from 'shared/api/model/columnsSlice';
-import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
-import { IBoardId, IColumnId } from 'shared/api/lib/types';
+import { IColumnId } from 'shared/api/lib/types';
 import NewColModal from './ui/NewColModal';
 import DelColModal from './ui/DelColModal';
 
@@ -54,13 +50,11 @@ export default function BoardPage() {
         openModalNewCol={() => setShowNewColModal(true)}
         openModalDelCol={openModalDelCol}
       />
-
       <NewColModal
         isOpen={showNewColModal}
         hideModal={() => setShowNewColModal(false)}
         createNewColumn={createNewColumn}
       />
-
       <DelColModal
         isOpen={showDelColModal}
         hideModal={() => setShowDelColModal(false)}

@@ -2,33 +2,44 @@ import clsx from 'clsx';
 import Input from '../../../shared/components/Input';
 import React, { useState } from 'react';
 import Modal from 'shared/components/Modal';
+import { useTranslation } from 'react-i18next';
 
 const NewColModal: React.FC<{
   isOpen: boolean;
   hideModal: () => void;
   createNewColumn: (title: string) => void;
 }> = ({ isOpen, hideModal, createNewColumn }) => {
+  const { t } = useTranslation();
   const [newColumnTitle, setNewColumnTitle] = useState('');
+  const [errorText, setErrorText] = useState('');
 
   const onCloseClick = () => {
-    setNewColumnTitle('');
     hideModal();
+    setNewColumnTitle('');
+    setErrorText('');
   };
 
   const onApplyClick = () => {
-    createNewColumn(newColumnTitle);
-    setNewColumnTitle('');
+    if (newColumnTitle.length < 1) {
+      setErrorText('Title should be at least 1 symbol');
+      console.log(errorText);
+      return;
+    } else {
+      createNewColumn(newColumnTitle);
+      setNewColumnTitle('');
+      setErrorText('');
+    }
   };
 
   return (
     <Modal isOpen={isOpen} closeModal={() => onCloseClick()}>
-      <div className="font-semibold text-slate-800 mb-2">Enter new column title</div>
+      <div className="font-semibold text-slate-800 mb-2">{t('enterColTitle')}</div>
       <Input
-        className="mb-3"
+        error={errorText}
         value={newColumnTitle}
         onChange={(e) => setNewColumnTitle(e.target.value)}
       />
-      <div className="flex gap-3">
+      <div className="flex gap-3 mt-2">
         <div
           onClick={() => onCloseClick()}
           className={clsx(
@@ -36,7 +47,7 @@ const NewColModal: React.FC<{
             'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
           )}
         >
-          Cancel
+          {t('cancel')}
         </div>
         <div
           onClick={() => onApplyClick()}
@@ -45,7 +56,7 @@ const NewColModal: React.FC<{
             'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
           )}
         >
-          Add Column
+          {t('confirm')}
         </div>
       </div>
     </Modal>
