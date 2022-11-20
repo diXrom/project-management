@@ -3,24 +3,12 @@ import clsx from 'clsx';
 import { FaAngleLeft } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import { ROUTE_PATH } from 'shared/common/constants';
-import { useAddColumnMutation, useGetColumnsQuery } from 'shared/api/model/columnsSlice';
-import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
-import { IBoardId } from 'shared/api/lib/types';
-import Modal from 'shared/components/Modal';
 
-const Panel = () => {
-  const [addColumn] = useAddColumnMutation();
-
+const Panel: React.FC<{ openModalNewCol: () => void }> = ({ openModalNewCol }) => {
   const { boardId } = useParams();
+  // console.log(openModalNewCol);
 
   // console.log(board);
-  const handleNewColumnClick = async () => {
-    if (boardId) {
-      const a = await addColumn({ title: 'test', order: 0, boardId });
-      console.log(a);
-      // const v = await getBoard();
-    }
-  };
 
   return (
     <div className="flex mb-5">
@@ -34,12 +22,12 @@ const Panel = () => {
         <FaAngleLeft />
       </Link>
 
-      <Modal isOpen={false} closeModal={() => {}}>
+      {/* <Modal isOpen={false} closeModal={() => {}}>
         {' '}
         sad
-      </Modal>
+      </Modal> */}
       <div
-        onClick={() => handleNewColumnClick()}
+        onClick={() => openModalNewCol()}
         className={clsx(
           'bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold',
           'h-10 px-6 rounded-lg flex items-center justify-center cursor-pointer sm:w-auto ml-2'

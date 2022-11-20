@@ -7,39 +7,65 @@ import Modal from 'shared/components/Modal';
 import Input from '../../shared/components/Input';
 import { useState } from 'react';
 import clsx from 'clsx';
+import {
+  useAddColumnMutation,
+  useDeleteColumnMutation,
+  useGetColumnsQuery,
+} from 'shared/api/model/columnsSlice';
+import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
+import { IBoardId, IColumnId } from 'shared/api/lib/types';
+import NewColModal from './ui/NewColModal';
+import DelColModal from './ui/DelColModal';
 
 export default function BoardPage() {
   const { boardId } = useParams();
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [showNewColModal, setShowNewColModal] = useState(false);
+  const [showDelColModal, setShowDelColModal] = useState(false);
+  const [columnIdToDel, setColumnIdToDel] = useState('');
+
+  const [addColumn] = useAddColumnMutation();
+  const [delColumn] = useDeleteColumnMutation();
+
+  const createNewColumn = async (title: string) => {
+    if (boardId) {
+      setShowNewColModal(false);
+      await addColumn({ title: title, order: data?.length || 0, boardId });
+    }
+  };
+
+  const openModalDelCol = ({ columnId }: IColumnId) => {
+    setShowDelColModal(true);
+    setColumnIdToDel(columnId);
+  };
+
+  const deleteColumn = async () => {
+    if (boardId) await delColumn({ boardId: boardId, columnId: columnIdToDel });
+    setShowDelColModal(false);
+  };
+
+  const { isLoading, isError, data } = useGetColumnsQuery({ boardId: boardId as string });
 
   return (
     <motion.div variants={fade} {...motionVariants}>
-      <Panel />
-      <Field />
+      <Panel openModalNewCol={() => setShowNewColModal(true)} />
+      <Field
+        columns={data}
+        openModalNewCol={() => setShowNewColModal(true)}
+        openModalDelCol={openModalDelCol}
+      />
 
-      <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
-        <div className="font-semibold text-slate-800 mb-2">Enter new column title</div>
-        <Input className="mb-3" />
-        <div className="flex gap-3">
-          <div
-            className={clsx(
-              'bg-blue-200 hover:bg-blue-300 transition duration-300 text-blue-600 font-semibold',
-              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
-            )}
-          >
-            Cancel
-          </div>
-          <div
-            className={clsx(
-              'bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold',
-              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
-            )}
-          >
-            Add Column
-          </div>
-        </div>
-      </Modal>
+      <NewColModal
+        isOpen={showNewColModal}
+        hideModal={() => setShowNewColModal(false)}
+        createNewColumn={createNewColumn}
+      />
+
+      <DelColModal
+        isOpen={showDelColModal}
+        hideModal={() => setShowDelColModal(false)}
+        deleteColumn={deleteColumn}
+      />
     </motion.div>
   );
 }

@@ -2,42 +2,49 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Task from './Task';
 import { FaBan, FaPlus } from 'react-icons/fa';
-import { useDeleteColumnMutation } from 'shared/api/model/columnsSlice';
+import { useDeleteColumnMutation, useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
+import { IColumnId } from 'shared/api/lib/types';
 
-const Column: React.FC<{ title: string; boardId: string; columnId: string }> = ({
-  title,
-  boardId,
-  columnId,
-}) => {
+const Column: React.FC<{
+  title: string;
+  boardId: string;
+  columnId: string;
+  order: number;
+  openModalDelCol: ({ columnId }: IColumnId) => void;
+}> = ({ title, boardId, columnId, order, openModalDelCol }) => {
   const [localTitle, setLocalTitle] = useState(title);
   const [isEditTitle, setIsEditTitle] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const localTitleRef = useRef<HTMLDivElement>(null);
 
+  const [applyColumnTitle] = useUpdateColumnMutation();
+
   useEffect(() => {
     if (isEditTitle) inputRef.current?.select();
   }, [isEditTitle]);
 
   useEffect(() => {
-    const endEditTitle = (e: MouseEvent) => {
-      if (e.target !== inputRef.current && e.target !== localTitleRef.current) {
-        //sendFetch
-        setIsEditTitle(false);
-      }
-    };
+    if (isEditTitle) {
+      const endEditTitle = (e: MouseEvent) => {
+        if (isEditTitle && e.target !== inputRef.current && e.target !== localTitleRef.current) {
+          applyColumnTitle({ boardId: boardId, _id: columnId, title: localTitle, order: order });
+          setIsEditTitle(false);
+        }
+      };
 
-    document.addEventListener('click', endEditTitle);
+      document.addEventListener('click', endEditTitle);
+      return () => {
+        document.removeEventListener('click', endEditTitle);
+      };
+    }
+  }, [applyColumnTitle, boardId, columnId, isEditTitle, localTitle, order]);
 
-    return () => {
-      document.removeEventListener('click', endEditTitle);
-    };
-  }, []);
-
-  const [deleteColumn] = useDeleteColumnMutation();
+  // const [deleteColumn] = useDeleteColumnMutation();
 
   const handleDeleteClick = () => {
-    deleteColumn({ boardId: boardId, columnId: columnId });
+    openModalDelCol({ columnId });
+    // delColumn({ boardId: boardId, columnId: columnId });
   };
 
   return (
@@ -46,7 +53,7 @@ const Column: React.FC<{ title: string; boardId: string; columnId: string }> = (
         <div className="mb-2 flex">
           <div
             className={clsx(
-              'text-slate-800 font-bold p-1 px-3 rounded-lg cursor-pointer w-full',
+              'text-slate-800 font-bold p-1 px-3 rounded-lg cursor-pointer w-full overflow-hidden',
               isEditTitle && 'hidden'
             )}
             ref={localTitleRef}
