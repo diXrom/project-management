@@ -12,6 +12,7 @@ import {
 import { IColumnId } from 'shared/api/lib/types';
 import NewColModal from './ui/NewColModal';
 import DelColModal from './ui/DelColModal';
+import FieldSkeleton from './ui/Field/FieldSkeleton';
 
 export default function BoardPage() {
   const { boardId } = useParams();
@@ -45,11 +46,14 @@ export default function BoardPage() {
   return (
     <motion.div variants={fade} {...motionVariants}>
       <Panel openModalNewCol={() => setShowNewColModal(true)} />
-      <Field
-        columns={data}
-        openModalNewCol={() => setShowNewColModal(true)}
-        openModalDelCol={openModalDelCol}
-      />
+      {isLoading && <FieldSkeleton />}
+      {!isLoading && !isError && (
+        <Field
+          columns={data}
+          openModalNewCol={() => setShowNewColModal(true)}
+          openModalDelCol={openModalDelCol}
+        />
+      )}
       <NewColModal
         isOpen={showNewColModal}
         hideModal={() => setShowNewColModal(false)}

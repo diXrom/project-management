@@ -22,7 +22,6 @@ const NewColModal: React.FC<{
   const onApplyClick = () => {
     if (newColumnTitle.length < 1) {
       setErrorText('Title should be at least 1 symbol');
-      console.log(errorText);
       return;
     } else {
       createNewColumn(newColumnTitle);
