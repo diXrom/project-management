@@ -63,5 +63,8 @@
   "newColumn": "Add new column",
   "newTask": "Add new task",
   "enterColTitle": "Enter new column title",
-  "wantToDelete": "Are you sure want to delete column?"
+  "wantToDelete": "Are you sure want to delete column?",
+  "titleLength": "Title should be at least 1 symbol",
+
+  "enterTaskTitle": "Enter new task title"
 }

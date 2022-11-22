@@ -5,6 +5,12 @@ import { FaBan, FaPlus } from 'react-icons/fa';
 import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
 import { IColumnId } from 'shared/api/lib/types';
 import { useTranslation } from 'react-i18next';
+import { useAddTaskMutation, useGetTasksQuery } from 'shared/api/model/tasksSlice';
+import Card from 'shared/components/Card';
+import Button from 'shared/components/Button';
+import NewTaskModal from '../Modals/NewTaskModal';
+import { useAppSelector } from 'shared/store/model/hooks';
+import { getUser } from 'shared/store/model/selectors';
 
 const Column: React.FC<{
   title: string;
@@ -16,11 +22,31 @@ const Column: React.FC<{
   const { t } = useTranslation();
   const [localTitle, setLocalTitle] = useState(title);
   const [isEditTitle, setIsEditTitle] = useState(false);
+  const [showNewTaskModal, setShowNewTaskModal] = useState(false);
+  const [addTask] = useAddTaskMutation();
+  const user = useAppSelector(getUser);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const localTitleRef = useRef<HTMLDivElement>(null);
 
   const [applyColumnTitle] = useUpdateColumnMutation();
+
+  const { data: tasks } = useGetTasksQuery({ boardId: boardId, columnId: columnId });
+
+  const createNewTask = async (title: string) => {
+    if (user) {
+      await addTask({
+        title: title,
+        order: tasks?.length || 0,
+        boardId: boardId,
+        columnId: columnId,
+        users: ['inna', 'jdd'],
+        userId: user._id,
+        description: 'desc',
+      });
+      setShowNewTaskModal(false);
+    }
+  };
 
   useEffect(() => {
     if (isEditTitle) inputRef.current?.select();
@@ -83,23 +109,30 @@ const Column: React.FC<{
           </div>
         </div>
 
-        {Array(5)
-          .fill(null)
-          .map((elem, idx) => (
-            <Task key={idx} />
-          ))}
+        {tasks?.map((task) => (
+          <Card
+            className="p-2 bg-slate-100 rounded-xl mb-2 font-medium text-slate-800"
+            key={task._id}
+          >
+            {task.title}
+          </Card>
+        ))}
 
-        <div
+        <Button
           className={clsx(
             'bg-blue-100 hover:bg-blue-200 transition duration-300 text-blue-600 ',
             'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer font-medium'
           )}
+          onClick={() => setShowNewTaskModal(true)}
         >
-          <FaPlus className="mr-1 text-sm" />
-
-          {t('newTask')}
-        </div>
+          <FaPlus className="mr-1 text-sm" /> {t('addBoard')}
+        </Button>
       </div>
+      <NewTaskModal
+        isOpen={showNewTaskModal}
+        hideModal={() => setShowNewTaskModal(false)}
+        createNewTask={createNewTask}
+      />
     </div>
   );
 };
