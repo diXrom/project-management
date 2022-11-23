@@ -42,14 +42,14 @@ const Column: React.FC<{
 
   const { data: tasks } = useGetTasksQuery({ boardId: boardId, columnId: columnId });
 
-  const createNewTask = async (title: string, description: string) => {
+  const createNewTask = async (title: string, description: string, users: string[]) => {
     if (user) {
       await addTask({
         title: title,
         order: tasks?.length || 0,
         boardId: boardId,
         columnId: columnId,
-        users: [],
+        users: users,
         userId: user._id,
         description: description,
       });
