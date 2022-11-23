@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import Task from './Task';
 import { FaBan, FaPlus } from 'react-icons/fa';
 import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
-import { IColumnId, ITaskId } from 'shared/api/lib/types';
+import { IColumnId } from 'shared/api/lib/types';
 import { useTranslation } from 'react-i18next';
 import {
   useAddTaskMutation,
@@ -43,16 +42,16 @@ const Column: React.FC<{
 
   const { data: tasks } = useGetTasksQuery({ boardId: boardId, columnId: columnId });
 
-  const createNewTask = async (title: string) => {
+  const createNewTask = async (title: string, description: string) => {
     if (user) {
       await addTask({
         title: title,
         order: tasks?.length || 0,
         boardId: boardId,
         columnId: columnId,
-        users: ['inna', 'jdd'],
+        users: [],
         userId: user._id,
-        description: 'desc',
+        description: description,
       });
       setShowNewTaskModal(false);
     }
