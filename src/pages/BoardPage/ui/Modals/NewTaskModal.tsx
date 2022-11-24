@@ -7,16 +7,21 @@ import Button from 'shared/components/Button';
 import { useGetUsersQuery } from 'shared/api/model/usersSlice';
 import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
 import { useParams } from 'react-router-dom';
+import Textarea from 'shared/components/Textarea';
+import { FaSpinner } from 'react-icons/fa';
 
 const NewTaskModal: React.FC<{
   isOpen: boolean;
+  isLoading: boolean;
   hideModal: () => void;
   createNewTask: (title: string, description: string, users: string[]) => void;
-}> = ({ isOpen, hideModal, createNewTask }) => {
+}> = ({ isOpen, hideModal, isLoading, createNewTask }) => {
   const { t } = useTranslation();
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
-  const [errorText, setErrorText] = useState('');
+  const [errorTextTitle, setErrorTextTitle] = useState('');
+  const [errorTextDescription, setErrorTextDescription] = useState('');
+
   const { boardId } = useParams();
 
   const { data: users } = useGetUsersQuery();
@@ -26,19 +31,23 @@ const NewTaskModal: React.FC<{
   const onCloseClick = () => {
     hideModal();
     setNewTaskTitle('');
-    setErrorText('');
+    setErrorTextTitle('');
+    setErrorTextDescription('');
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (newTaskTitle.length < 1) {
-      setErrorText(`${t('titleLength')}`);
+    if (!newTaskTitle.length || !newTaskDescription.length) {
+      !newTaskTitle.length && setErrorTextTitle(`${t('titleLength')}`);
+      !newTaskDescription.length && setErrorTextDescription(`${t('titleLength')}`);
       return;
     } else {
       createNewTask(newTaskTitle, newTaskDescription, checkedUsers);
       setNewTaskTitle('');
-      setErrorText('');
+      setNewTaskDescription('');
+      setErrorTextTitle('');
+      setErrorTextDescription('');
     }
   };
 
@@ -48,12 +57,24 @@ const NewTaskModal: React.FC<{
       <div className="font-semibold text-slate-800 mb-2">{t('enterTaskTitle')}</div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Input
-          error={errorText}
+          error={errorTextTitle}
           value={newTaskTitle}
-          onChange={(e) => setNewTaskTitle(e.target.value)}
+          onChange={(e) => {
+            setErrorTextTitle('');
+            setNewTaskTitle(e.target.value);
+          }}
         />
-        <textarea onChange={(e) => setNewTaskDescription(e.target.value)} />
-        <p>{t('invite')}</p>
+        <div className="font-semibold text-slate-800 mb-2">{t('enterDescription')}</div>
+
+        <Textarea
+          error={errorTextDescription}
+          value={newTaskDescription}
+          onChange={(e) => {
+            setErrorTextDescription('');
+            setNewTaskDescription(e.target.value);
+          }}
+        />
+        <p>{t('executors')}</p>
         {boardUsers?.map((item, index) => {
           return (
             <div key={item._id} className="flex items-center">
@@ -91,11 +112,13 @@ const NewTaskModal: React.FC<{
           </div>
           <Button
             type="submit"
+            disabled={isLoading}
             className={clsx(
               'bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold',
-              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
+              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full !text-base shadow-md gap-2 '
             )}
           >
+            {isLoading && <FaSpinner className="w-5 h-5 animate-spin" />}
             {t('confirm')}
           </Button>
         </div>

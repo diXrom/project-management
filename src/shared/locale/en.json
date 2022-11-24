@@ -67,5 +67,7 @@
   "titleLength": "Title should be at least 1 symbol",
 
   "enterTaskTitle": "Enter new task title",
-  "wantToDeleteTask": "Are you sure want to delete task?"
+  "wantToDeleteTask": "Are you sure want to delete task?",
+  "enterDescription": "Enter task description",
+  "executors": "Assignee:"
 }

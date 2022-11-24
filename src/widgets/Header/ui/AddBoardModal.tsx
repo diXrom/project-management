@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaSpinner } from 'react-icons/fa';
 import { useAddBoardMutation } from 'shared/api/model/boardsSlice';
 import { useGetUsersQuery } from 'shared/api/model/usersSlice';
 import Button from 'shared/components/Button';
@@ -18,7 +19,9 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
   const user = useAppSelector(getUser);
 
   const [inputValue, setInputValue] = useState('');
-  const [addBoard] = useAddBoardMutation();
+  const [addBoard, { isLoading }] = useAddBoardMutation();
+  const [errorTextTitle, setErrorTextTitle] = useState('');
+
   const { data: users } = useGetUsersQuery(undefined, {
     skip: !isOpen,
   });
@@ -27,13 +30,16 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    await addBoard({ title: inputValue, owner: user!._id, users: checkedUsers });
-    closeModal();
-    setInputValue('');
-  }
 
-  function onChange(event: React.FormEvent<HTMLInputElement>) {
-    setInputValue(event.currentTarget.value);
+    if (!inputValue) {
+      setErrorTextTitle(`${t('titleLength')}`);
+
+      return;
+    } else {
+      await addBoard({ title: inputValue, owner: user!._id, users: checkedUsers });
+      closeModal();
+      setInputValue('');
+    }
   }
 
   return (
@@ -42,9 +48,13 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Input
           placeholder={t('enterName')}
+          error={errorTextTitle}
           type="text"
           value={inputValue}
-          onChange={onChange}
+          onChange={(event) => {
+            setErrorTextTitle('');
+            setInputValue(event.currentTarget.value);
+          }}
         ></Input>
         <p>{t('invite')}</p>
         {users
@@ -75,7 +85,12 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
             );
           })}
 
-        <Button type="submit" className="place-self-end">
+        <Button
+          type="submit"
+          className="place-self-end w-full !text-base shadow-md h-11 flex items-center gap-2 justify-center"
+          disabled={isLoading}
+        >
+          {isLoading && <FaSpinner className="w-5 h-5 animate-spin" />}
           {t('save')}
         </Button>
       </form>
