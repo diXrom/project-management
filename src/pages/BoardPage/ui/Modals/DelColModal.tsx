@@ -23,15 +23,15 @@ const DelColModal: React.FC<{
         >
           {t('cancel')}
         </div>
-        <div
+        <button
           onClick={() => deleteColumn()}
           className={clsx(
             'bg-red-600 hover:bg-red-700 transition duration-300 text-white font-semibold',
-            'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
+            'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full focus:outline-none'
           )}
         >
           {t('delete')}
-        </div>
+        </button>
       </div>
     </Modal>
   );

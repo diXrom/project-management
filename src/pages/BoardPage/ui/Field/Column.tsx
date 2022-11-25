@@ -38,7 +38,6 @@ const Column: React.FC<{
   const user = useAppSelector(getUser);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const localTitleRef = useRef<HTMLDivElement>(null);
 
   const [applyColumnTitle] = useUpdateColumnMutation();
 
@@ -65,27 +64,29 @@ const Column: React.FC<{
       setShowDelTaskModal(false);
     }
   };
-  useEffect(() => {
-    if (isEditTitle) inputRef.current?.select();
-  }, [isEditTitle]);
 
   useEffect(() => {
-    if (isEditTitle) {
-      const endEditTitle = (e: MouseEvent) => {
-        if (isEditTitle && e.target !== inputRef.current && e.target !== localTitleRef.current) {
-          applyColumnTitle({ boardId: boardId, _id: columnId, title: localTitle, order: order });
-          setIsEditTitle(false);
-        }
-      };
-      document.addEventListener('click', endEditTitle);
-      return () => {
-        document.removeEventListener('click', endEditTitle);
-      };
+    if (inputRef.current) {
+      inputRef.current?.select();
+      inputRef.current.value = localTitle;
     }
-  }, [applyColumnTitle, boardId, columnId, isEditTitle, localTitle, order]);
+  }, [isEditTitle, localTitle]);
 
   const handleDeleteClick = () => {
     openModalDelCol({ columnId });
+  };
+
+  const handleApplyTitle = () => {
+    if (inputRef.current && inputRef.current?.value !== localTitle) {
+      setLocalTitle(inputRef.current?.value);
+      applyColumnTitle({
+        boardId: boardId,
+        _id: columnId,
+        title: inputRef.current?.value,
+        order: order,
+      });
+    }
+    setIsEditTitle(false);
   };
 
   return (
@@ -97,7 +98,6 @@ const Column: React.FC<{
               'text-slate-800 font-bold p-1 px-3 rounded-lg cursor-pointer w-full overflow-hidden',
               isEditTitle && 'hidden'
             )}
-            ref={localTitleRef}
             onClick={() => {
               setIsEditTitle(true);
             }}
@@ -105,19 +105,24 @@ const Column: React.FC<{
             {localTitle}
           </div>
 
-          <input
-            className={clsx(
-              'bg-slate-200 font-bold p-1 px-3 rounded-lg w-full outline-none',
-              !isEditTitle && 'hidden'
-            )}
-            value={localTitle}
-            ref={inputRef}
-            autoComplete="off"
-            onChange={(e) => {
-              setLocalTitle(e.target.value);
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleApplyTitle();
             }}
-          ></input>
-
+          >
+            <input
+              className={clsx(
+                'bg-slate-200 font-bold p-1 px-3 rounded-lg w-full outline-none',
+                !isEditTitle && 'hidden'
+              )}
+              ref={inputRef}
+              autoComplete="off"
+              onBlur={() => {
+                handleApplyTitle();
+              }}
+            ></input>
+          </form>
           <div
             className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
             onClick={() => handleDeleteClick()}
