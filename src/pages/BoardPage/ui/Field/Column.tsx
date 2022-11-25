@@ -15,6 +15,7 @@ import NewTaskModal from '../Modals/NewTaskModal';
 import { useAppSelector } from 'shared/store/model/hooks';
 import { getUser } from 'shared/store/model/selectors';
 import DelTaskModal from '../Modals/DelTaskModal';
+import TaskModal from '../Modals/TaskModal';
 
 const Column: React.FC<{
   title: string;
@@ -29,7 +30,8 @@ const Column: React.FC<{
   const [showDelTaskModal, setShowDelTaskModal] = useState(false);
 
   const [showNewTaskModal, setShowNewTaskModal] = useState(false);
-  const [addTask] = useAddTaskMutation();
+  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [addTask, { isLoading }] = useAddTaskMutation();
   const [delTask] = useDeleteTaskMutation();
   const taskIdRef = useRef<string>();
 
@@ -133,17 +135,19 @@ const Column: React.FC<{
           <Card
             className="p-2 bg-slate-100 rounded-xl mb-2 font-medium text-slate-800 flex justify-between items-center	"
             key={task._id}
+            onClick={() => setShowTaskModal(true)}
           >
             <h4>{task.title}</h4>
-            <div
+            <Button
               className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
-              onClick={() => {
+              onClick={(event) => {
+                event.stopPropagation();
                 taskIdRef.current = task._id;
                 setShowDelTaskModal(true);
               }}
             >
               <FaBan />
-            </div>
+            </Button>
           </Card>
         ))}
 
@@ -161,12 +165,14 @@ const Column: React.FC<{
         isOpen={showNewTaskModal}
         hideModal={() => setShowNewTaskModal(false)}
         createNewTask={createNewTask}
+        isLoading={isLoading}
       />
       <DelTaskModal
         isOpen={showDelTaskModal}
         hideModal={() => setShowDelTaskModal(false)}
         deleteTask={deleteTask}
       />
+      <TaskModal isOpen={showTaskModal} hideModal={() => setShowTaskModal(false)} />
     </div>
   );
 };
