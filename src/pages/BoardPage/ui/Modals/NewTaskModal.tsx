@@ -101,7 +101,7 @@ const NewTaskModal: React.FC<{
           );
         })}
         <div className="flex gap-3 mt-2">
-          <div
+          <Button
             onClick={() => onCloseClick()}
             className={clsx(
               'bg-blue-200 hover:bg-blue-300 transition duration-300 text-blue-600 font-semibold',
@@ -109,7 +109,7 @@ const NewTaskModal: React.FC<{
             )}
           >
             {t('cancel')}
-          </div>
+          </Button>
           <Button
             type="submit"
             disabled={isLoading}
