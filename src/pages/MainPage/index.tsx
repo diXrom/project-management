@@ -30,12 +30,7 @@ const MainPage = () => {
     }
   };
 
-  const { isLoading, isError, data } = useGetBoardsSetIdQuery(
-    { userId: user?._id ?? '' },
-    {
-      skip: !Boolean(user?._id),
-    }
-  );
+  const { isLoading, isError, data } = useGetBoardsSetIdQuery({ userId: user?._id ?? '' });
 
   return (
     <motion.div variants={fade} {...motionVariants}>
