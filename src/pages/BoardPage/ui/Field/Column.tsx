@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FaBan, FaPlus } from 'react-icons/fa';
+import { FaBan, FaPlus, FaTrashAlt } from 'react-icons/fa';
 import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
 import { IColumnId, ITask } from 'shared/api/lib/types';
 import { useTranslation } from 'react-i18next';
@@ -91,7 +91,7 @@ const Column: React.FC<{
   };
 
   return (
-    <div className="w-80 bg-slate-50 rounded-lg shadow-lg shadow-slate-300 p-2 pr-1.5 shrink-0 max-h-full h-fit flex flex-col">
+    <div className="w-80 bg-slate-50 rounded-lg shadow-lg shadow-slate-300 p-2 pr-1.5 shrink-0 max-h-full h-fit flex flex-col hover:shadow-md">
       <div className="custom-scroll overflow-x-hidden overflow-y-auto p-1 pr-1.5">
         <div className="mb-2 flex">
           <div
@@ -134,7 +134,7 @@ const Column: React.FC<{
 
         {tasks?.map((task) => (
           <Card
-            className="p-2 bg-slate-100 rounded-xl mb-2 font-medium text-slate-800 flex justify-between items-center	"
+            className="p-2 bg-slate-100 rounded-xl mb-2 font-medium text-slate-800 flex justify-between items-center	hover:shadow-lg"
             key={task._id}
             onClick={() => {
               taskRef.current = task;
@@ -144,14 +144,14 @@ const Column: React.FC<{
           >
             <h4>{task.title}</h4>
             <Button
-              className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
+              className="items-center gap-1 !border !border-white flex"
               onClick={(event) => {
                 event.stopPropagation();
                 taskRef.current = task;
                 setShowDelTaskModal(true);
               }}
             >
-              <FaBan />
+              <FaTrashAlt className="w-4 h-4" />
             </Button>
           </Card>
         ))}

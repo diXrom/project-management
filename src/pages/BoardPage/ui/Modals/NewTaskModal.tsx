@@ -104,8 +104,8 @@ const NewTaskModal: React.FC<{
           <Button
             onClick={() => onCloseClick()}
             className={clsx(
-              'bg-blue-200 hover:bg-blue-300 transition duration-300 text-blue-600 font-semibold',
-              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full'
+              'bg-blue-200 hover:bg-blue-300 transition duration-300 text-white-600 font-semibold',
+              'h-10 px-3 rounded-lg flex items-center justify-center cursor-pointer w-full !text-base'
             )}
           >
             {t('cancel')}
