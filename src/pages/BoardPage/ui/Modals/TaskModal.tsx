@@ -1,50 +1,103 @@
 import clsx from 'clsx';
 import Input from '../../../../shared/components/Input';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import Modal from 'shared/components/Modal';
 import { useTranslation } from 'react-i18next';
 import Button from 'shared/components/Button';
-import { useGetUsersQuery } from 'shared/api/model/usersSlice';
-import { useGetBoardQuery } from 'shared/api/model/boardsSlice';
-import { useParams } from 'react-router-dom';
+import { useGetTaskQuery, useUpdateTaskMutation } from 'shared/api/model/tasksSlice';
+import { FaBan } from 'react-icons/fa';
+import { ITask, ITaskId } from 'shared/api/lib/types';
 
 const TaskModal: React.FC<{
   isOpen: boolean;
   hideModal: () => void;
-}> = ({ isOpen, hideModal }) => {
+  task: ITask;
+  boardId: string;
+  columnId: string;
+  openDelTaskModal: () => void;
+}> = ({ isOpen, hideModal, boardId, columnId, task, openDelTaskModal }) => {
   const { t } = useTranslation();
-  const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [newTaskDescription, setNewTaskDescription] = useState('');
-  const [errorText, setErrorText] = useState('');
-  const { boardId } = useParams();
+  const { title, _id: taskId, description } = task;
+  const { data: taskInfo, isLoading } = useGetTaskQuery({ boardId, columnId, taskId });
 
-  const { data: users } = useGetUsersQuery();
-  const { data: boardInfo } = useGetBoardQuery({ boardId: boardId! });
-  const [checkedUsers, setCheckedUsers] = useState<string[]>([]);
+  const [localTitle, setLocalTitle] = useState(title);
+  const [isEditTitle, setIsEditTitle] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [updateTaskTitle] = useUpdateTaskMutation();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current?.select();
+      inputRef.current.value = localTitle || '';
+    }
+  }, [isEditTitle, localTitle]);
+
+  const handleApplyTitle = () => {
+    if (taskInfo && inputRef.current && inputRef.current?.value !== localTitle) {
+      setLocalTitle(inputRef.current?.value);
+      updateTaskTitle({
+        boardId: boardId,
+        _id: taskId,
+        columnId: columnId,
+        title: inputRef.current?.value,
+        description: taskInfo?.description,
+        userId: taskInfo?.userId,
+        users: taskInfo?.users,
+        order: taskInfo.order,
+      });
+    }
+    setIsEditTitle(false);
+  };
+
+  const handleDeleteClick = () => {
+    openDelTaskModal();
+  };
 
   const onCloseClick = () => {
     hideModal();
-    setNewTaskTitle('');
-    setErrorText('');
   };
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-
-    if (newTaskTitle.length < 1) {
-      setErrorText(`${t('titleLength')}`);
-      return;
-    } else {
-      //   createNewTask(newTaskTitle, newTaskDescription, checkedUsers);
-      setNewTaskTitle('');
-      setErrorText('');
-    }
-  };
-
-  const boardUsers = users?.filter((user) => boardInfo?.users.includes(user._id));
   return (
     <Modal isOpen={isOpen} closeModal={() => onCloseClick()}>
-      <div className="font-semibold text-slate-800 mb-2">{t('enterTaskTitle')}</div>
+      <div className="mb-2 flex">
+        <div
+          className={clsx(
+            'text-slate-800 font-bold p-1 px-3 rounded-lg cursor-pointer w-full overflow-hidden',
+            isEditTitle && 'hidden'
+          )}
+          onClick={() => {
+            setIsEditTitle(true);
+          }}
+        >
+          {localTitle}
+        </div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleApplyTitle();
+          }}
+        >
+          <input
+            className={clsx(
+              'bg-slate-200 font-bold p-1 px-3 rounded-lg w-full outline-none',
+              !isEditTitle && 'hidden'
+            )}
+            ref={inputRef}
+            autoComplete="off"
+            onBlur={() => {
+              handleApplyTitle();
+            }}
+          ></input>
+        </form>
+        <div
+          className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
+          onClick={() => handleDeleteClick()}
+        >
+          <FaBan />
+        </div>
+      </div>
+      {/* <div className="font-semibold text-slate-800 mb-2">{t('enterTaskTitle')}</div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Input
           error={errorText}
@@ -98,7 +151,7 @@ const TaskModal: React.FC<{
             {t('confirm')}
           </Button>
         </div>
-      </form>
+      </form> */}
     </Modal>
   );
 };

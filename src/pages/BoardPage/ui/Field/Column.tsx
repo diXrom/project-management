@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { FaBan, FaPlus } from 'react-icons/fa';
 import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
-import { IColumnId } from 'shared/api/lib/types';
+import { IColumnId, ITask } from 'shared/api/lib/types';
 import { useTranslation } from 'react-i18next';
 import {
   useAddTaskMutation,
@@ -33,7 +33,8 @@ const Column: React.FC<{
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [addTask, { isLoading }] = useAddTaskMutation();
   const [delTask] = useDeleteTaskMutation();
-  const taskIdRef = useRef<string>();
+
+  const taskRef = useRef<ITask>();
 
   const user = useAppSelector(getUser);
 
@@ -59,8 +60,8 @@ const Column: React.FC<{
   };
 
   const deleteTask = async () => {
-    if (taskIdRef.current) {
-      await delTask({ boardId: boardId, columnId: columnId, taskId: taskIdRef.current });
+    if (taskRef.current?._id) {
+      await delTask({ boardId: boardId, columnId: columnId, taskId: taskRef.current._id });
       setShowDelTaskModal(false);
     }
   };
@@ -135,14 +136,18 @@ const Column: React.FC<{
           <Card
             className="p-2 bg-slate-100 rounded-xl mb-2 font-medium text-slate-800 flex justify-between items-center	"
             key={task._id}
-            onClick={() => setShowTaskModal(true)}
+            onClick={() => {
+              taskRef.current = task;
+
+              setShowTaskModal(true);
+            }}
           >
             <h4>{task.title}</h4>
             <Button
               className="bg-red-100  transition-all duration-300 hover:bg-red-200 font-bold p-2 ml-2 rounded-lg text-red-500 cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
-                taskIdRef.current = task._id;
+                taskRef.current = task;
                 setShowDelTaskModal(true);
               }}
             >
@@ -172,7 +177,16 @@ const Column: React.FC<{
         hideModal={() => setShowDelTaskModal(false)}
         deleteTask={deleteTask}
       />
-      <TaskModal isOpen={showTaskModal} hideModal={() => setShowTaskModal(false)} />
+      {showTaskModal && (
+        <TaskModal
+          task={taskRef.current!}
+          boardId={boardId}
+          columnId={columnId}
+          isOpen={showTaskModal}
+          hideModal={() => setShowTaskModal(false)}
+          openDelTaskModal={() => setShowDelTaskModal(true)}
+        />
+      )}
     </div>
   );
 };
