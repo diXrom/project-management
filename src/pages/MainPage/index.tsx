@@ -72,16 +72,18 @@ const MainPage = () => {
           ))}
         </div>
       ) : (
-        <div
-          onClick={openAddBoardModal}
-          className={clsx(
-            'w-80 shrink-0 bg-blue-100 hover:bg-blue-200 transition duration-300 text-blue-600 ',
-            'h-12 px-3 rounded-lg flex items-center justify-center cursor-pointer font-medium'
-          )}
-        >
-          <FaPlus className="mr-1 text-sm" />
-          {t('addBoard')}
-        </div>
+        !isLoading && (
+          <div
+            onClick={openAddBoardModal}
+            className={clsx(
+              'w-80 shrink-0 bg-blue-100 hover:bg-blue-200 transition duration-300 text-blue-600 ',
+              'h-12 px-3 rounded-lg my-3 flex items-center justify-center cursor-pointer font-medium'
+            )}
+          >
+            <FaPlus className="mr-1 text-sm" />
+            {t('addBoard')}
+          </div>
+        )
       )}
       <AddBoardModal isOpen={isOpenAddBoardModal} closeModal={() => setOpenAddBoardModal(false)} />
       <Modal isOpen={isOpen} closeModal={closeModal}>
