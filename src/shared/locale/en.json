@@ -63,11 +63,13 @@
   "newColumn": "Add new column",
   "newTask": "Add new task",
   "enterColTitle": "Enter new column title",
-  "wantToDelete": "Are you sure want to delete column?",
+  "wantToDelete": "Are you sure you want to delete column?",
   "titleLength": "Enter at least 1 symbol",
 
   "enterTaskTitle": "Enter new task title",
   "wantToDeleteTask": "Are you sure want to delete task?",
   "enterDescription": "Enter task description",
-  "executors": "Assignee:"
+  "executors": "Assignee:",
+  "boards": "My boards",
+  "invited": "Invited: "
 }

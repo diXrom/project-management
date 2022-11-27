@@ -41,9 +41,9 @@ export default function AddBoardModal({ isOpen, closeModal }: AddBoardProps) {
       await addBoard({ title: inputValue, owner: user!._id, users: [...checkedUsers, user!._id] });
       closeModal();
       setInputValue('');
+      setCheckedUsers([]);
     }
   }
-
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
       <h3 className="'text-slate-800 text-lg font-bold mb-2">{t('newBoard')}</h3>

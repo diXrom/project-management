@@ -144,7 +144,7 @@ const Column: React.FC<{
           >
             <h4>{task.title}</h4>
             <Button
-              className="items-center gap-1 !border !border-white flex"
+              className="items-center gap-1  border-0 flex 	text-slate-700 hover:text-red-500 bg-transparent "
               onClick={(event) => {
                 event.stopPropagation();
                 taskRef.current = task;

@@ -7,7 +7,6 @@ import { MdPostAdd } from 'react-icons/md';
 
 import AddBoardModal from './AddBoardModal';
 import Button from 'shared/components/Button';
-import Modal from 'shared/components/Modal';
 import useUserPanel from '../model/useUserPanel';
 import getMenuItems from '../model/constants';
 import { getMenuItem, menuBtnStyle, menuStyle, userPanelBtn, menuTransition } from '../lib/styles';
