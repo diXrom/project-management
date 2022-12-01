@@ -9,7 +9,7 @@ const Panel: React.FC<{ openModalNewCol: () => void }> = ({ openModalNewCol }) =
   const { t } = useTranslation();
 
   return (
-    <div className="flex mb-5">
+    <div className="flex">
       <Link
         to={ROUTE_PATH.BOARDS}
         className={clsx(

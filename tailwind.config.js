@@ -14,7 +14,7 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       gridTemplateRows: {
-        layout: '80px 1fr 80px',
+        layout: '80px 1fr 85px',
       },
       extend: {
         opacity: ['disabled'],

@@ -5,7 +5,7 @@ import Header from 'widgets/Header';
 
 const Layout = () => {
   return (
-    <div className="grid h-screen gap-5 grid-rows-layout">
+    <div className="grid h-screen gap-4 grid-rows-layout">
       <Header />
       <main className="container px-2.5 md:px-5 w-screen">
         <Outlet />

@@ -36,7 +36,7 @@
   "nameTimur": "Тимур Толеген",
   "nameInna": "Инна Малиновская",
   "nameVyach": "Вячеслав Грабовский",
-  "descTimur": "Рыба-текст на русском dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.",
+  "descTimur": "Организация командной работы, построение базовой структуры приложения, все взаимодествия с бэкэндом, авторизация, маршрутизация, драг энд дроп на странице доски и липкий заголовок с пользовательским меню.",
   "descInna": "Деплой бэкенда, локазизация, главная страница: создание/удаление/отображение досок, создание/удаление/отображение/редактирование заданий",
   "descVyach": "Рыба-текст на русском dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.",
   "teamlead": "Тимлид",
@@ -71,5 +71,9 @@
   "enterDescription": "Введите описание задания",
   "executors": "Ответственный:",
   "boards": "Мои доски",
-  "invited": "Приглашены: "
+  "invited": "Приглашены: ",
+
+  "notFind": "К сожалению, мы не смогли найти эту страницу.",
+  "dontWorry": "Но не волнуйтесь, вы можете найти много других вещей на нашей домашней странице.",
+  "homepage": "На главную страницу"
 }
