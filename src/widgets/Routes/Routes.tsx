@@ -8,6 +8,7 @@ import { ROUTE_PATH } from 'shared/common/constants';
 import { useInitApp } from 'widgets/Routes/model/useInitApp';
 import PrivateRoutes from 'widgets/Routes/model/constants';
 import 'app/lib/style.scss';
+import NotFoundPage from 'pages/NotFoundPage';
 
 const MainRoutes = () => {
   const load = useInitApp();
@@ -23,6 +24,7 @@ const MainRoutes = () => {
           <Route path={ROUTE_PATH.EDIT} element={PrivateRoutes.EditProfile} />
           <Route path={ROUTE_PATH.BOARDS} element={PrivateRoutes.MainPage} />
           <Route path={ROUTE_PATH.BOARD} element={PrivateRoutes.BoardPage} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>

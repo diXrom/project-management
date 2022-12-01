@@ -71,5 +71,9 @@
   "enterDescription": "Enter task description",
   "executors": "Assignee:",
   "boards": "My boards",
-  "invited": "Invited: "
+  "invited": "Invited: ",
+
+  "notFind": "Sorry, we could not find this page.",
+  "dontWorry": "But dont worry, you can find plenty of other things on our homepage.",
+  "homepage": "Back to homepage"
 }
