@@ -7,7 +7,9 @@ const useScrollY = () => {
 
   const handleScroll = () => {
     const currentScrollY = isBrowser ? window.scrollY : 0;
-    setScrollY(currentScrollY);
+    if (currentScrollY >= 70 && currentScrollY <= 100) {
+      setScrollY(currentScrollY);
+    }
   };
 
   useEffect(() => {
