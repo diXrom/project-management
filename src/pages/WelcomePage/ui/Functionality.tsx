@@ -46,11 +46,14 @@ const Functionality = () => {
   return (
     <section className="container max-w-screen-xl mb-28" id="more">
       <ScrollElement name="more"></ScrollElement>
-      <h2 className="text-4xl font-bold text-slate-700 text-center mb-10">{t('funcsTitle')}</h2>
+      <h2 className="mb-10 text-4xl font-bold text-center text-slate-700">{t('funcsTitle')}</h2>
       <div className="flex flex-row items-center justify-center">
-        <div className="w-full max-w-100 md:max-w-md px-2 py-2 sm:px-0 shadow-lg shadow-slate-800/[0.1] rounded-xl mr-3 ml-3 bg-slate-50">
+        <motion.div
+          layout
+          className="w-full max-w-100 md:max-w-md px-2 py-2 sm:px-0 shadow-lg shadow-slate-800/[0.1] rounded-xl mr-3 ml-3 bg-slate-50"
+        >
           <Tab.Group selectedIndex={currentTab} onChange={setCurrentTab}>
-            <Tab.List className="flex space-x-1 rounded-xl bg-slate-400 p-1 m-3">
+            <Tab.List className="flex p-1 m-3 space-x-1 rounded-xl bg-slate-400">
               {FEATURES.map((item) => (
                 <Tab
                   key={item.name}
@@ -80,7 +83,7 @@ const Functionality = () => {
                   <ul>
                     <motion.li
                       key={item.name}
-                      className="relative rounded-md p-3"
+                      className="relative p-3 rounded-md"
                       variants={tabVariants}
                       initial="hidden"
                       animate={currentTab === idx ? 'visible' : 'hidden'}
@@ -90,7 +93,7 @@ const Functionality = () => {
                       <div className="mt-1 flex text-lg font-normal leading-12 text-gray-500 min-h-[120px]">
                         {item.desc}
                       </div>
-                      <div className="w-full max-w-100 block md:hidden -ml-100">
+                      <div className="block w-full max-w-100 md:hidden -ml-100">
                         <img src={item.img} alt="imgLists" />
                       </div>
                     </motion.li>
@@ -99,9 +102,9 @@ const Functionality = () => {
               ))}
             </Tab.Panels>
           </Tab.Group>
-        </div>
+        </motion.div>
 
-        <div className="w-full max-w-100 hidden md:block -ml-10 relative -z-10">
+        <div className="relative hidden w-full -ml-10 max-w-100 md:block -z-10">
           {FEATURES.map((elem, idx) => (
             <motion.img
               key={elem.name}
