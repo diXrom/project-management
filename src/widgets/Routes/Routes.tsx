@@ -1,8 +1,6 @@
 import { Routes, Route, HashRouter as Router } from 'react-router-dom';
 
 import WelcomePage from 'pages/WelcomePage';
-import MainPage from 'pages/MainPage';
-import BoardPage from 'pages/BoardPage';
 import Registration from 'pages/Registration';
 import Login from 'pages/Login';
 import Layout from 'widgets/Layout';
@@ -23,8 +21,8 @@ const MainRoutes = () => {
           <Route path={ROUTE_PATH.REGISTRATION} element={<Registration />} />
           <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
           <Route path={ROUTE_PATH.EDIT} element={PrivateRoutes.EditProfile} />
-          <Route path={ROUTE_PATH.BOARDS} element={<MainPage />} />
-          <Route path={ROUTE_PATH.BOARD} element={<BoardPage />} />
+          <Route path={ROUTE_PATH.BOARDS} element={PrivateRoutes.MainPage} />
+          <Route path={ROUTE_PATH.BOARD} element={PrivateRoutes.BoardPage} />
         </Route>
       </Routes>
     </Router>
