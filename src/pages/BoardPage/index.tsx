@@ -3,7 +3,7 @@ import { fade, motionVariants } from 'shared/common/styles';
 import Panel from './ui/Panel/Panel';
 import { useParams } from 'react-router-dom';
 import Field from './ui/Field/Field';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   useAddColumnMutation,
   useDeleteColumnMutation,
@@ -17,6 +17,7 @@ import FieldSkeleton from './ui/Field/Skeleton/FieldSkeleton';
 export default function BoardPage() {
   const { boardId } = useParams();
 
+  const refCol = useRef(false);
   const [showNewColModal, setShowNewColModal] = useState(false);
   const [showDelColModal, setShowDelColModal] = useState(false);
   const [columnIdToDel, setColumnIdToDel] = useState('');
@@ -25,9 +26,10 @@ export default function BoardPage() {
   const [delColumn] = useDeleteColumnMutation();
 
   const createNewColumn = async (title: string) => {
+    refCol.current = true;
     if (boardId) {
       setShowNewColModal(false);
-      await addColumn({ title: title, order: data?.length || 0, boardId });
+      await addColumn({ title: title, order: columns?.length || 0, boardId });
     }
   };
 
@@ -37,11 +39,21 @@ export default function BoardPage() {
   };
 
   const deleteColumn = async () => {
+    refCol.current = true;
     if (boardId) await delColumn({ boardId: boardId, columnId: columnIdToDel });
     setShowDelColModal(false);
   };
 
-  const { isLoading, isError, data } = useGetColumnsQuery({ boardId: boardId as string });
+  const { isLoading, isError, columns } = useGetColumnsQuery(
+    { boardId: boardId as string },
+    {
+      selectFromResult: ({ isError, isLoading, data }) => ({
+        columns: data ? [...data].sort((a, b) => a.order - b.order) : [],
+        isLoading,
+        isError,
+      }),
+    }
+  );
 
   return (
     <motion.div variants={fade} {...motionVariants}>
@@ -49,7 +61,8 @@ export default function BoardPage() {
       {isLoading && <FieldSkeleton />}
       {!isLoading && !isError && (
         <Field
-          columns={data}
+          refCol={refCol}
+          columns={columns}
           openModalNewCol={() => setShowNewColModal(true)}
           openModalDelCol={openModalDelCol}
         />

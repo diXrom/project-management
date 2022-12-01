@@ -16,6 +16,8 @@ import { getUser } from 'shared/store/model/selectors';
 import { useGetUsersQuery } from 'shared/api/model/usersSlice';
 import AddBoardModal from 'widgets/Header/ui/AddBoardModal';
 
+// ==========TODO: REFACTOR==========
+
 const MainPage = () => {
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
@@ -40,17 +42,17 @@ const MainPage = () => {
 
   return (
     <motion.div variants={fade} {...motionVariants}>
-      <h1 className="text-3xl text-slate-800 font-bold	p-6">{t('boards')}</h1>
+      <h1 className="p-6 text-3xl font-bold text-slate-800">{t('boards')}</h1>
       {isError && <p className="text-center text-red-500">{t('error')}</p>}
       {isLoading && <CardSkeleton />}
       {data?.length ? (
-        <div className="container mx-auto flex flex-col gap-4 ">
+        <div className="container flex flex-col gap-4 mx-auto ">
           {data?.map((board) => (
             <Link key={board._id} to={`${ROUTE_PATH.BOARDS}/${board._id}`}>
-              <Card className="flex justify-between cursor-pointer	hover:shadow-lg">
+              <Card className="flex justify-between cursor-pointer hover:shadow-lg">
                 <div>
-                  <h1 className="text-xl font-semibold	">{board.title}</h1>
-                  <p className="text-light text-sm	text-slate-600">
+                  <h1 className="text-xl font-semibold ">{board.title}</h1>
+                  <p className="text-sm text-light text-slate-600">
                     {t('invited')}
                     {board.users
                       .map((user) => users?.find((item) => item._id === user)?.name)
@@ -87,7 +89,7 @@ const MainPage = () => {
       )}
       <AddBoardModal isOpen={isOpenAddBoardModal} closeModal={() => setOpenAddBoardModal(false)} />
       <Modal isOpen={isOpen} closeModal={closeModal}>
-        <h3 className="font-semibold text-slate-800 mb-2">{t('warning')}</h3>
+        <h3 className="mb-2 font-semibold text-slate-800">{t('warning')}</h3>
         <div className="flex gap-3">
           <div
             onClick={closeModal}
