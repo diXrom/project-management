@@ -16,7 +16,6 @@ const useScrollY = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  console.log(scrollY);
   return scrollY;
 };
 
