@@ -38,7 +38,7 @@
   "nameVyach": "Vyacheslav Grabovskiy",
   "descTimur": "Organization of teamwork, building basic application structures, all interactions with the backend, authorization, routing, drag'n'drop on the board page and the sticky header with user menu.",
   "descInna": "Backend deploy, localization, main route: boards create-delete-render, task create-delete-render-edit",
-  "descVyach": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue quis lectus quis varius. Integer mollis eget libero in cursus. Ut mattis tellus ut sapien faucibus.",
+  "descVyach": "Welcome page, board page: create/display/edit/delete board columns with tasks",
   "teamlead": "Teamlead",
   "developer": "Developer",
 
