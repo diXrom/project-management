@@ -40,7 +40,6 @@ const Field: React.FC<{
       setCol(columns);
     }
   }, [columns]);
-
   return (
     <Reorder.Group
       axis="x"
@@ -48,20 +47,19 @@ const Field: React.FC<{
       onReorder={setCol}
       className="custom-scroll flex gap-4 overflow-x-auto w-full pb-5 pt-5 h-[calc(100vh-260px)] select-none"
     >
-      {!!tasks.length &&
-        col.map((column) => (
-          <Column
-            tasks={tasks.filter((task) => task.columnId === column._id)}
-            column={column}
-            updateCol={updateCol}
-            key={column._id}
-            boardId={boardId}
-            columnId={column._id}
-            title={column.title}
-            order={column.order}
-            openModalDelCol={openModalDelCol}
-          />
-        ))}
+      {col.map((column) => (
+        <Column
+          tasks={tasks.filter((task) => task.columnId === column._id)}
+          column={column}
+          updateCol={updateCol}
+          key={column._id}
+          boardId={boardId}
+          columnId={column._id}
+          title={column.title}
+          order={column.order}
+          openModalDelCol={openModalDelCol}
+        />
+      ))}
       <div
         onClick={openModalNewCol}
         className={clsx(

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Modal from 'shared/components/Modal';
 import { useTranslation } from 'react-i18next';
 import Button from 'shared/components/Button';
-import { useUpdateTaskMutation } from 'shared/api/model/tasksSlice';
+import { useGetTasksSetIdQuery, useUpdateTaskMutation } from 'shared/api/model/tasksSlice';
 import { FaSave, FaTrashAlt } from 'react-icons/fa';
 import { ITask } from 'shared/api/lib/types';
 import { useGetUsersQuery } from 'shared/api/model/usersSlice';
@@ -22,7 +22,6 @@ const TaskModal: React.FC<{
 }> = ({ isOpen, hideModal, boardId, columnId, task, openDelTaskModal, updateRef }) => {
   const { t } = useTranslation();
   const { title, _id: taskId, description } = task;
-
   const [localTitle, setLocalTitle] = useState(title);
   const [localDescription, setLocalDescription] = useState(description);
   const [isEditTitle, setIsEditTitle] = useState(false);
@@ -30,6 +29,8 @@ const TaskModal: React.FC<{
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDescription, setErrorDescription] = useState(false);
   const [checkedUsers, setCheckedUsers] = useState<string[]>([...task.users]);
+  const { data: tasks = [] } = useGetTasksSetIdQuery({ boardId: boardId! });
+  const currentTask = tasks.find((task) => task._id === taskId);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -67,7 +68,7 @@ const TaskModal: React.FC<{
         description: task.description,
         userId: task.userId,
         users: task.users,
-        order: task.order,
+        order: currentTask?.order || task.order,
       });
     }
     setIsEditTitle(false);
@@ -90,7 +91,7 @@ const TaskModal: React.FC<{
         description: textareaRef.current.value,
         userId: task.userId,
         users: task.users,
-        order: task.order,
+        order: currentTask?.order || task.order,
       });
     }
     setIsEditDescription(false);
@@ -107,7 +108,7 @@ const TaskModal: React.FC<{
       description: task.description,
       userId: task.userId,
       users: checkedUsers,
-      order: task.order,
+      order: currentTask?.order || task.order,
     });
   };
 
