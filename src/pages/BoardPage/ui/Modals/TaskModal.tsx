@@ -230,7 +230,7 @@ const TaskModal: React.FC<{
               onClick={onCloseClick}
             >
               <FaSave className="w-4 h-4" />
-              {t('Ok')}
+              {t('save')}
             </Button>
           </div>
         </div>
