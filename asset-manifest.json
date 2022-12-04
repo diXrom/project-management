@@ -1,19 +1,17 @@
 {
   "files": {
-    "main.css": "/project-management/static/css/main.b0ff6eba.css",
-    "main.js": "/project-management/static/js/main.389bdaf2.js",
+    "main.css": "/project-management/static/css/main.e69b9331.css",
+    "main.js": "/project-management/static/js/main.95069d8c.js",
     "static/media/cards.webp": "/project-management/static/media/cards.968c3ea7758271363e0d.webp",
     "static/media/lists.webp": "/project-management/static/media/lists.e4c167744e66907eb30c.webp",
     "static/media/boards.webp": "/project-management/static/media/boards.c3c16641f9b0b190a9ff.webp",
     "static/media/vyach.jpg": "/project-management/static/media/vyach.3158324523b531dda905.jpg",
     "static/media/timur.jpg": "/project-management/static/media/timur.b6b70aad165841fa4250.jpg",
     "static/media/inna.jpg": "/project-management/static/media/inna.31177197d7440deead67.jpg",
-    "index.html": "/project-management/index.html",
-    "main.b0ff6eba.css.map": "/project-management/static/css/main.b0ff6eba.css.map",
-    "main.389bdaf2.js.map": "/project-management/static/js/main.389bdaf2.js.map"
+    "index.html": "/project-management/index.html"
   },
   "entrypoints": [
-    "static/css/main.b0ff6eba.css",
-    "static/js/main.389bdaf2.js"
+    "static/css/main.e69b9331.css",
+    "static/js/main.95069d8c.js"
   ]
 }
