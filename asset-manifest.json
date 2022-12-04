@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/project-management/static/css/main.e69b9331.css",
-    "main.js": "/project-management/static/js/main.c8728db4.js",
+    "main.js": "/project-management/static/js/main.a6b968ff.js",
     "static/media/cards.webp": "/project-management/static/media/cards.968c3ea7758271363e0d.webp",
     "static/media/lists.webp": "/project-management/static/media/lists.e4c167744e66907eb30c.webp",
     "static/media/boards.webp": "/project-management/static/media/boards.c3c16641f9b0b190a9ff.webp",
@@ -12,6 +12,6 @@
   },
   "entrypoints": [
     "static/css/main.e69b9331.css",
-    "static/js/main.c8728db4.js"
+    "static/js/main.a6b968ff.js"
   ]
 }
