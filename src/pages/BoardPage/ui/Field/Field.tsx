@@ -48,7 +48,7 @@ const Field: React.FC<{
       onReorder={setCol}
       className="custom-scroll flex gap-4 overflow-x-auto w-full pb-5 pt-5 h-[calc(100vh-260px)] select-none"
     >
-      {tasks.length &&
+      {!!tasks.length &&
         col.map((column) => (
           <Column
             tasks={tasks.filter((task) => task.columnId === column._id)}

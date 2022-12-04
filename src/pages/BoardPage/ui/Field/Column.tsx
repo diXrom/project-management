@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FaBan, FaPlus, FaTrashAlt, FaPen } from 'react-icons/fa';
+import { FaBan, FaPlus, FaTrashAlt, FaInfo } from 'react-icons/fa';
 import { useUpdateColumnMutation } from 'shared/api/model/columnsSlice';
 import { IColumn, IColumnId, ITask } from 'shared/api/lib/types';
 import { useTranslation } from 'react-i18next';
@@ -179,7 +179,7 @@ const Column: React.FC<{
                     setShowTaskModal(true);
                   }}
                 >
-                  <FaPen className="w-3 h-4" />
+                  <FaInfo className="w-3 h-4" />
                 </Button>
                 <Button
                   className="flex items-center bg-transparent border-0 text-slate-700 hover:text-red-500 "

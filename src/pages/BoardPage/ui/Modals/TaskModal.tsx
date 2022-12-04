@@ -122,7 +122,7 @@ const TaskModal: React.FC<{
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={() => onCloseClick()}>
+      <Modal isOpen={isOpen} closeModal={onCloseClick}>
         <div className="flex flex-col">
           <div className="mb-4">
             <h3
@@ -185,13 +185,6 @@ const TaskModal: React.FC<{
                   }}
                 ></textarea>
                 {errorDescription && <p className="text-xs text-red-500 ">{t('titleLength')}</p>}
-
-                <Button
-                  className="self-end p-2 ml-2 font-bold text-red-500 transition-all duration-300 bg-blue-700 rounded-lg cursor-pointer hover:bg-blue-300"
-                  onClick={() => handleApplyDescription()}
-                >
-                  <FaSave />
-                </Button>
               </div>
             </form>
           </div>
@@ -223,13 +216,22 @@ const TaskModal: React.FC<{
               );
             })}
           </div>
-          <Button
-            className="items-center gap-1 !border !border-white flex self-end"
-            onClick={() => handleDeleteClick()}
-          >
-            <FaTrashAlt className="w-4 h-4" />
-            {t('delete')}
-          </Button>
+          <div className="flex gap-2 ml-auto">
+            <Button
+              className="items-center gap-1 !border !border-white flex self-end"
+              onClick={handleDeleteClick}
+            >
+              <FaTrashAlt className="w-4 h-4" />
+              {t('delete')}
+            </Button>
+            <Button
+              className="items-center gap-1 !border !border-white flex self-end"
+              onClick={onCloseClick}
+            >
+              <FaSave className="w-4 h-4" />
+              {t('Ok')}
+            </Button>
+          </div>
         </div>
       </Modal>
     </>
