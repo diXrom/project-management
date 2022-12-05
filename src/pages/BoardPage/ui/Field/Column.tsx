@@ -22,6 +22,7 @@ import { TbDragDrop2 } from 'react-icons/tb';
 // ==========TODO: REFACTOR==========
 
 const Column: React.FC<{
+  load: boolean;
   tasks: ITask[];
   column: IColumn;
   updateCol: () => void;
@@ -30,7 +31,7 @@ const Column: React.FC<{
   columnId: string;
   order: number;
   openModalDelCol: ({ columnId }: IColumnId) => void;
-}> = ({ title, boardId, columnId, order, openModalDelCol, column, updateCol, tasks }) => {
+}> = ({ title, boardId, columnId, order, openModalDelCol, column, updateCol, tasks, load }) => {
   const { t } = useTranslation();
   const [localTitle, setLocalTitle] = useState(title);
   const [isEditTitle, setIsEditTitle] = useState(false);

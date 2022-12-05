@@ -9,7 +9,7 @@ const Features = () => {
 
       <iframe
         className="m-auto rounded-lg w-full h-[300px] md:w-[700px] sm:h-[380px]"
-        src="https://www.youtube.com/watch?v=fKtVUp654cM"
+        src="https://www.youtube.com/embed/fKtVUp654cM"
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

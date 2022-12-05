@@ -26,11 +26,12 @@ const Field: React.FC<{
   };
   const boardId = useParams().boardId as string;
   const [col, setCol] = useState(columns);
-  const { tasks } = useGetTasksSetIdQuery(
+  const { tasks, load } = useGetTasksSetIdQuery(
     { boardId },
     {
-      selectFromResult: ({ data }) => ({
+      selectFromResult: ({ data, isLoading }) => ({
         tasks: data ? [...data].sort((a, b) => a.order - b.order) : [],
+        load: isLoading,
       }),
     }
   );
@@ -40,6 +41,9 @@ const Field: React.FC<{
       setCol(columns);
     }
   }, [columns]);
+
+  if (load) return null;
+
   return (
     <Reorder.Group
       axis="x"
@@ -49,6 +53,7 @@ const Field: React.FC<{
     >
       {col.map((column) => (
         <Column
+          load={load}
           tasks={tasks.filter((task) => task.columnId === column._id)}
           column={column}
           updateCol={updateCol}

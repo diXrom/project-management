@@ -11,9 +11,6 @@ import 'app/lib/style.scss';
 import NotFoundPage from 'pages/NotFoundPage';
 
 const MainRoutes = () => {
-  const load = useInitApp();
-  if (load) return null;
-
   return (
     <Router>
       <Routes>
